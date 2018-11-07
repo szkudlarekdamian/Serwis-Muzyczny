@@ -15,8 +15,8 @@ namespace Serwis_Muzyczny.Models
     public partial class wykonanie
     {
         public int wykonanieId { get; set; }
-        public Nullable<int> artystaId { get; set; }
-        public Nullable<int> utworId { get; set; }
+        public int artystaId { get; set; }
+        public int utworId { get; set; }
     
         public virtual artysta artysta { get; set; }
         public virtual utwor utwor { get; set; }

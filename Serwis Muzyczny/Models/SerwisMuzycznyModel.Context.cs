@@ -294,5 +294,14 @@ namespace Serwis_Muzyczny.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<wiecej_niz_srednia_Result>("wiecej_niz_srednia");
         }
+    
+        public virtual ObjectResult<utwory_z_albumu_Result> utwory_z_albumu(Nullable<int> idAlbumu)
+        {
+            var idAlbumuParameter = idAlbumu.HasValue ?
+                new ObjectParameter("idAlbumu", idAlbumu) :
+                new ObjectParameter("idAlbumu", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<utwory_z_albumu_Result>("utwory_z_albumu", idAlbumuParameter);
+        }
     }
 }

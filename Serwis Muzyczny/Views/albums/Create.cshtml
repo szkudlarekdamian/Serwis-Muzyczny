@@ -1,57 +1,62 @@
 ﻿@model Serwis_Muzyczny.Models.album
 
-@{
-    ViewBag.Title = "Nowy album";
-}
+
 
 <h2>Nowy album (LINQ)</h2>
 
+@{
+    ViewBag.Title = "Nowy album";
+    if (ViewBag.Exception != null)
+    {
+        <h3 style="color:darkred">@Html.ViewBag.Exception</h3>
+    }
+}
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
 
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.nazwa, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.nazwa, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.nazwa, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.dataWydania, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.dataWydania, new { htmlAttributes = new { type="date",max=@DateTime.Now.ToString("yyyy-MM-dd"), @class = "form-control", style="padding-top:-10px;" } })
-            @Html.ValidationMessageFor(model => model.dataWydania, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    <div class="form-horizontal">
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.gatunekId, "gatunekId", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("gatunekId", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.gatunekId, "", new { @class = "text-danger" })
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.nazwa, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.nazwa, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.nazwa, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.dataWydania, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.dataWydania, new { htmlAttributes = new { type = "date", max = @DateTime.Now.ToString("yyyy-MM-dd"), @class = "form-control", style = "padding-top:-10px;" } })
+                @Html.ValidationMessageFor(model => model.dataWydania, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.artystaId, "artystaId", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("artystaId", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.artystaId, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.gatunekId, "Gatunek", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("gatunekId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.gatunekId, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Dodaj" class="btn btn-default" />
+        <div class="form-group">
+            @Html.LabelFor(model => model.artystaId, "Artysta", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("artystaId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.artystaId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Dodaj" class="btn btn-default" />
+            </div>
         </div>
     </div>
-</div>
 }
 
 <div>

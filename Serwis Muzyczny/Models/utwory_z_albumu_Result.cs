@@ -10,15 +10,10 @@
 namespace Serwis_Muzyczny.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class przynaleznosc
+    public partial class utwory_z_albumu_Result
     {
-        public int przynaleznoscId { get; set; }
-        public int albumId { get; set; }
-        public int utworId { get; set; }
-    
-        public virtual album album { get; set; }
-        public virtual utwor utwor { get; set; }
+        public string Nazwa { get; set; }
+        public string Długość { get; set; }
     }
 }

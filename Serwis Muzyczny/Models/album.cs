@@ -22,30 +22,24 @@ namespace Serwis_Muzyczny.Models
         }
 
         public int albumId { get; set; }
-
-        [Display(Name = "Tytu³")]
-        [Required(ErrorMessage = "Tytu³ nie mo¿e byæ pusty")]
-        [MaxLength(60, ErrorMessage = "Maksymalna d³ugoœæ tytu³u wynosi 60")]
+        [Display(Name = "Tytul")]
+        [Required(ErrorMessage = "Tytul nie moze byc pusty")]
+        [MaxLength(60, ErrorMessage = "Maksymalna dlugosc tytulu wynosi 60")]
         public string nazwa { get; set; }
 
         [Display(Name = "Data wydania")]
-        [Required(ErrorMessage = "Data nie mo¿e byæ pusta")]
-        /*
-    A date formatted like YYYY-MM-DD could be something like 28-12-2013.
-    And if we reverse the date, it is 2013-12-28.
-    We remove the colons, and we get 20131228.
-    We set an other date: 2013-11-27 which finally is 20131127.
-    We can perform a simple operation: 20131228 - 20131127
-*/
-
-        [Serwis_Muzyczny.App_Start.Validation.FutureDate]
+        [Required(ErrorMessage = "Data nie moze byc pusta!")]
+        [Serwis_Muzyczny.App_Start.Validation.FutureDate(ErrorMessage ="Data nie mo¿e byæ z przysz³oœci!")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime dataWydania {get;set;}
+        public DateTime dataWydania { get; set; }
 
-        public Nullable<int> gatunekId { get; set; }
-        public Nullable<int> artystaId { get; set; }
-    
+        [Display(Name = "Gatunek")]
+        public int gatunekId { get; set; }
+
+        [Display(Name = "Artysta")]
+        public int artystaId { get; set; }
+
         public virtual artysta artysta { get; set; }
         public virtual gatunek gatunek { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
