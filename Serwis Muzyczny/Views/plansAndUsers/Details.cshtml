@@ -1,0 +1,42 @@
+﻿@model Serwis_Muzyczny.Models.planUzytkownik
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>planUzytkownik</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.dataKupnaPakietu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dataKupnaPakietu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.plany.nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.plany.nazwa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.uzytkownik.imie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.uzytkownik.imie)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.planUzytkownikid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

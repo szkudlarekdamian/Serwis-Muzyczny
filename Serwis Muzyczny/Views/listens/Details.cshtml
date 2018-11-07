@@ -1,0 +1,42 @@
+﻿@model Serwis_Muzyczny.Models.odsluch
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>odsluch</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.dataOdtworzenia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dataOdtworzenia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.utwor.nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.utwor.nazwa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.uzytkownik.imie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.uzytkownik.imie)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.odsluchId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

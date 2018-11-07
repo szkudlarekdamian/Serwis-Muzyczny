@@ -1,0 +1,50 @@
+﻿@model Serwis_Muzyczny.Models.album
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>album</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nazwa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dataWydania)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dataWydania)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.artysta.pseudonim)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.artysta.pseudonim)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.gatunek.nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gatunek.nazwa)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.albumId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

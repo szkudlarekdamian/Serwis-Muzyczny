@@ -1,0 +1,34 @@
+﻿@model Serwis_Muzyczny.Models.przynaleznosc
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>przynaleznosc</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.album.nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.album.nazwa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.utwor.nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.utwor.nazwa)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.przynaleznoscId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

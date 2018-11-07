@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Serwis_Muzyczny.Models.album>
+
+@{
+    ViewBag.Title = "Albumy";
+}
+
+<h2>Zbiór albumów</h2>
+
+<p>
+    @Html.ActionLink("Nowy album (LINQ)", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            <p>Tytuł</p>
+        </th>
+        <th>
+            <p>Data wydania</p>
+            @*@Html.DisplayNameFor(model => model.dataWydania)*@
+        </th>
+        <th>
+            <p>Artysta</p>
+            @*@Html.DisplayNameFor(model => model.artysta.pseudonim)*@
+        </th>
+        <th>
+            <p>Gatunek</p>
+            @*@Html.DisplayNameFor(model => model.gatunek.nazwa)*@
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nazwa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dataWydania)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.artysta.pseudonim)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.gatunek.nazwa)
+        </td>
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.albumId }) |
+            @Html.ActionLink("Szczegóły", "Details", new { id=item.albumId }) |
+            @Html.ActionLink("Usuń", "Delete", new { id=item.albumId })
+        </td>
+    </tr>
+}
+
+</table>

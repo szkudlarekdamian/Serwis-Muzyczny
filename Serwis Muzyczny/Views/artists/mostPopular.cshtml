@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Serwis_Muzyczny.Models.napopularniejsi_artysci_Result>
+
+@{
+    ViewBag.Title = "Najpopularniejsi artyści";
+}
+
+<h2>Najpopularniejsi artyści</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Pseudonim
+        </th>
+        <th>
+            Odsłuchań
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.pseudonim)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.liczbaOdtworzen)
+            </td>
+
+        </tr>
+    }
+
+</table>

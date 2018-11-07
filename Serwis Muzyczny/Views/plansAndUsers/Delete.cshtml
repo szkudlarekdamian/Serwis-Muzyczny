@@ -1,0 +1,48 @@
+﻿@model Serwis_Muzyczny.Models.planUzytkownik
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>planUzytkownik</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.dataKupnaPakietu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dataKupnaPakietu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.plany.nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.plany.nazwa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.uzytkownik.imie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.uzytkownik.imie)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

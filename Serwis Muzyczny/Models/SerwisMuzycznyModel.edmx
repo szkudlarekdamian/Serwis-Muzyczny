@@ -1,0 +1,901 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SerwisMuzycznyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="album">
+          <Key>
+            <PropertyRef Name="albumId" />
+          </Key>
+          <Property Name="albumId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nazwa" Type="varchar" MaxLength="60" />
+          <Property Name="dataWydania" Type="date" />
+          <Property Name="gatunekId" Type="int" />
+          <Property Name="artystaId" Type="int" />
+        </EntityType>
+        <EntityType Name="artysta">
+          <Key>
+            <PropertyRef Name="artystaId" />
+          </Key>
+          <Property Name="artystaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pseudonim" Type="varchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="gatunek">
+          <Key>
+            <PropertyRef Name="gatunekId" />
+          </Key>
+          <Property Name="gatunekId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nazwa" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="odsluch">
+          <Key>
+            <PropertyRef Name="odsluchId" />
+          </Key>
+          <Property Name="odsluchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="uzytkownikId" Type="varchar" MaxLength="30" />
+          <Property Name="utworId" Type="int" />
+          <Property Name="dataOdtworzenia" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="planUzytkownik">
+          <Key>
+            <PropertyRef Name="planUzytkownikid" />
+          </Key>
+          <Property Name="planUzytkownikid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="uzytkownikId" Type="varchar" MaxLength="30" />
+          <Property Name="planId" Type="int" />
+          <Property Name="dataKupnaPakietu" Type="date" />
+        </EntityType>
+        <EntityType Name="plany">
+          <Key>
+            <PropertyRef Name="planId" />
+          </Key>
+          <Property Name="planId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="iloscPiosenek" Type="int" Nullable="false" />
+          <Property Name="cena" Type="money" Nullable="false" />
+          <Property Name="nazwa" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="przynaleznosc">
+          <Key>
+            <PropertyRef Name="przynaleznoscId" />
+          </Key>
+          <Property Name="przynaleznoscId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="albumId" Type="int" />
+          <Property Name="utworId" Type="int" />
+        </EntityType>
+        <EntityType Name="utwor">
+          <Key>
+            <PropertyRef Name="utworId" />
+          </Key>
+          <Property Name="utworId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nazwa" Type="varchar" MaxLength="60" />
+          <Property Name="dlugosc" Type="varchar" MaxLength="8" />
+        </EntityType>
+        <EntityType Name="uzytkownik">
+          <Key>
+            <PropertyRef Name="uzytkownikId" />
+          </Key>
+          <Property Name="uzytkownikId" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="imie" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="nazwisko" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="40" />
+          <Property Name="kraj" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="dataUrodzenia" Type="date" Nullable="false" />
+          <Property Name="miejscowosc" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="rodzajMiejscowosci" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="plec" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="PozostalaIlosc" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="wykonanie">
+          <Key>
+            <PropertyRef Name="wykonanieId" />
+          </Key>
+          <Property Name="wykonanieId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="artystaId" Type="int" />
+          <Property Name="utworId" Type="int" />
+        </EntityType>
+        <Association Name="FK__album__artystaId__52593CB8">
+          <End Role="artysta" Type="Self.artysta" Multiplicity="0..1" />
+          <End Role="album" Type="Self.album" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artysta">
+              <PropertyRef Name="artystaId" />
+            </Principal>
+            <Dependent Role="album">
+              <PropertyRef Name="artystaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__album__gatunekId__5165187F">
+          <End Role="gatunek" Type="Self.gatunek" Multiplicity="0..1" />
+          <End Role="album" Type="Self.album" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gatunek">
+              <PropertyRef Name="gatunekId" />
+            </Principal>
+            <Dependent Role="album">
+              <PropertyRef Name="gatunekId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__odsluch__utworId__49C3F6B7">
+          <End Role="utwor" Type="Self.utwor" Multiplicity="0..1" />
+          <End Role="odsluch" Type="Self.odsluch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="utwor">
+              <PropertyRef Name="utworId" />
+            </Principal>
+            <Dependent Role="odsluch">
+              <PropertyRef Name="utworId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__odsluch__uzytkow__48CFD27E">
+          <End Role="uzytkownik" Type="Self.uzytkownik" Multiplicity="0..1" />
+          <End Role="odsluch" Type="Self.odsluch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uzytkownik">
+              <PropertyRef Name="uzytkownikId" />
+            </Principal>
+            <Dependent Role="odsluch">
+              <PropertyRef Name="uzytkownikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__planUzytk__planI__403A8C7D">
+          <End Role="plany" Type="Self.plany" Multiplicity="0..1" />
+          <End Role="planUzytkownik" Type="Self.planUzytkownik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="plany">
+              <PropertyRef Name="planId" />
+            </Principal>
+            <Dependent Role="planUzytkownik">
+              <PropertyRef Name="planId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__planUzytk__uzytk__3F466844">
+          <End Role="uzytkownik" Type="Self.uzytkownik" Multiplicity="0..1" />
+          <End Role="planUzytkownik" Type="Self.planUzytkownik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uzytkownik">
+              <PropertyRef Name="uzytkownikId" />
+            </Principal>
+            <Dependent Role="planUzytkownik">
+              <PropertyRef Name="uzytkownikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__przynalez__album__5535A963">
+          <End Role="album" Type="Self.album" Multiplicity="0..1" />
+          <End Role="przynaleznosc" Type="Self.przynaleznosc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="album">
+              <PropertyRef Name="albumId" />
+            </Principal>
+            <Dependent Role="przynaleznosc">
+              <PropertyRef Name="albumId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__przynalez__utwor__5629CD9C">
+          <End Role="utwor" Type="Self.utwor" Multiplicity="0..1" />
+          <End Role="przynaleznosc" Type="Self.przynaleznosc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="utwor">
+              <PropertyRef Name="utworId" />
+            </Principal>
+            <Dependent Role="przynaleznosc">
+              <PropertyRef Name="utworId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__wykonanie__artys__4D94879B">
+          <End Role="artysta" Type="Self.artysta" Multiplicity="0..1" />
+          <End Role="wykonanie" Type="Self.wykonanie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artysta">
+              <PropertyRef Name="artystaId" />
+            </Principal>
+            <Dependent Role="wykonanie">
+              <PropertyRef Name="artystaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__wykonanie__utwor__4E88ABD4">
+          <End Role="utwor" Type="Self.utwor" Multiplicity="0..1" />
+          <End Role="wykonanie" Type="Self.wykonanie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="utwor">
+              <PropertyRef Name="utworId" />
+            </Principal>
+            <Dependent Role="wykonanie">
+              <PropertyRef Name="utworId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="dodaj_album" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nazwa" Type="varchar" Mode="In" />
+          <Parameter Name="data" Type="date" Mode="In" />
+          <Parameter Name="nazwa_gatunku" Type="varchar" Mode="In" />
+          <Parameter Name="pseudonim" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dodaj_artyste" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pseudonim" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dodaj_gatunek" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nazwa" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dodaj_odsluch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="uztkownikId" Type="varchar" Mode="In" />
+          <Parameter Name="utworId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dodaj_przynaleznosc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="albumId" Type="int" Mode="In" />
+          <Parameter Name="utworId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dodaj_utwor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nazwa" Type="varchar" Mode="In" />
+          <Parameter Name="dlugosc" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dodaj_uzytkownika" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nick" Type="varchar" Mode="In" />
+          <Parameter Name="imie" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="nazwisko" Type="varchar" Mode="In" />
+          <Parameter Name="kraj" Type="varchar" Mode="In" />
+          <Parameter Name="dataUrodzenia" Type="date" Mode="In" />
+          <Parameter Name="miejscowosc" Type="varchar" Mode="In" />
+          <Parameter Name="rodzajMiejscowosci" Type="varchar" Mode="In" />
+          <Parameter Name="plec" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dodaj_wykonanie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="artystaId" Type="int" Mode="In" />
+          <Parameter Name="utworId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dodajPlan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="iloscPiosenek" Type="int" Mode="In" />
+          <Parameter Name="cena" Type="money" Mode="In" />
+          <Parameter Name="nazwa" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dodajPlanUzytkownik" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUzytkowni" Type="varchar" Mode="In" />
+          <Parameter Name="idPlan" Type="int" Mode="In" />
+        </Function>
+        <Function Name="liczba_albumow_artysty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pseudonim" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="liczba_dni_odtwarzania_utworu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="utworId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="liczba_utworow_album" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nazwa" Type="varchar" Mode="In" />
+          <Parameter Name="pseudonim" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="liczba_utworow_artysty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pseudonim" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="liczba_utworow_danego_gatunku" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nazwa" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="liczba_utworow_odtowrzonych_przez_uzytkownika" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="imie" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="liczba_uzytkownikow_ktorzy_odtworzyli_utwor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nazwa" Type="varchar" Mode="In" />
+          <Parameter Name="pseudonim" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="najczesciej_odtwarzany_utwor_danego_gatunku" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
+          <Parameter Name="gatunekId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="najpopularniejsze_w_kraju" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="napopularniejsi_artysci" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="liczbaDni" Type="int" Mode="In" />
+        </Function>
+        <Function Name="piosenka_zyskujaca_najbardziej_popularność_30_dni" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar" />
+        <Function Name="srednia_odtworzen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="wiecej_niz_srednia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="SerwisMuzycznyModelStoreContainer">
+          <EntitySet Name="album" EntityType="Self.album" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="artysta" EntityType="Self.artysta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="gatunek" EntityType="Self.gatunek" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="odsluch" EntityType="Self.odsluch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="planUzytkownik" EntityType="Self.planUzytkownik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="plany" EntityType="Self.plany" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="przynaleznosc" EntityType="Self.przynaleznosc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="utwor" EntityType="Self.utwor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="uzytkownik" EntityType="Self.uzytkownik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="wykonanie" EntityType="Self.wykonanie" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__album__artystaId__52593CB8" Association="Self.FK__album__artystaId__52593CB8">
+            <End Role="artysta" EntitySet="artysta" />
+            <End Role="album" EntitySet="album" />
+          </AssociationSet>
+          <AssociationSet Name="FK__album__gatunekId__5165187F" Association="Self.FK__album__gatunekId__5165187F">
+            <End Role="gatunek" EntitySet="gatunek" />
+            <End Role="album" EntitySet="album" />
+          </AssociationSet>
+          <AssociationSet Name="FK__odsluch__utworId__49C3F6B7" Association="Self.FK__odsluch__utworId__49C3F6B7">
+            <End Role="utwor" EntitySet="utwor" />
+            <End Role="odsluch" EntitySet="odsluch" />
+          </AssociationSet>
+          <AssociationSet Name="FK__odsluch__uzytkow__48CFD27E" Association="Self.FK__odsluch__uzytkow__48CFD27E">
+            <End Role="uzytkownik" EntitySet="uzytkownik" />
+            <End Role="odsluch" EntitySet="odsluch" />
+          </AssociationSet>
+          <AssociationSet Name="FK__planUzytk__planI__403A8C7D" Association="Self.FK__planUzytk__planI__403A8C7D">
+            <End Role="plany" EntitySet="plany" />
+            <End Role="planUzytkownik" EntitySet="planUzytkownik" />
+          </AssociationSet>
+          <AssociationSet Name="FK__planUzytk__uzytk__3F466844" Association="Self.FK__planUzytk__uzytk__3F466844">
+            <End Role="uzytkownik" EntitySet="uzytkownik" />
+            <End Role="planUzytkownik" EntitySet="planUzytkownik" />
+          </AssociationSet>
+          <AssociationSet Name="FK__przynalez__album__5535A963" Association="Self.FK__przynalez__album__5535A963">
+            <End Role="album" EntitySet="album" />
+            <End Role="przynaleznosc" EntitySet="przynaleznosc" />
+          </AssociationSet>
+          <AssociationSet Name="FK__przynalez__utwor__5629CD9C" Association="Self.FK__przynalez__utwor__5629CD9C">
+            <End Role="utwor" EntitySet="utwor" />
+            <End Role="przynaleznosc" EntitySet="przynaleznosc" />
+          </AssociationSet>
+          <AssociationSet Name="FK__wykonanie__artys__4D94879B" Association="Self.FK__wykonanie__artys__4D94879B">
+            <End Role="artysta" EntitySet="artysta" />
+            <End Role="wykonanie" EntitySet="wykonanie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__wykonanie__utwor__4E88ABD4" Association="Self.FK__wykonanie__utwor__4E88ABD4">
+            <End Role="utwor" EntitySet="utwor" />
+            <End Role="wykonanie" EntitySet="wykonanie" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SerwisMuzycznyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="album">
+          <Key>
+            <PropertyRef Name="albumId" />
+          </Key>
+          <Property Name="albumId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nazwa" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="dataWydania" Type="DateTime" Precision="0" />
+          <Property Name="gatunekId" Type="Int32" />
+          <Property Name="artystaId" Type="Int32" />
+          <NavigationProperty Name="artysta" Relationship="Self.FK__album__artystaId__52593CB8" FromRole="album" ToRole="artysta" />
+          <NavigationProperty Name="gatunek" Relationship="Self.FK__album__gatunekId__5165187F" FromRole="album" ToRole="gatunek" />
+          <NavigationProperty Name="przynaleznosc" Relationship="Self.FK__przynalez__album__5535A963" FromRole="album" ToRole="przynaleznosc" />
+        </EntityType>
+        <EntityType Name="artysta">
+          <Key>
+            <PropertyRef Name="artystaId" />
+          </Key>
+          <Property Name="artystaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pseudonim" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="album" Relationship="Self.FK__album__artystaId__52593CB8" FromRole="artysta" ToRole="album" />
+          <NavigationProperty Name="wykonanie" Relationship="Self.FK__wykonanie__artys__4D94879B" FromRole="artysta" ToRole="wykonanie" />
+        </EntityType>
+        <EntityType Name="gatunek">
+          <Key>
+            <PropertyRef Name="gatunekId" />
+          </Key>
+          <Property Name="gatunekId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nazwa" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="album" Relationship="Self.FK__album__gatunekId__5165187F" FromRole="gatunek" ToRole="album" />
+        </EntityType>
+        <EntityType Name="odsluch">
+          <Key>
+            <PropertyRef Name="odsluchId" />
+          </Key>
+          <Property Name="odsluchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="uzytkownikId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="utworId" Type="Int32" />
+          <Property Name="dataOdtworzenia" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="utwor" Relationship="Self.FK__odsluch__utworId__49C3F6B7" FromRole="odsluch" ToRole="utwor" />
+          <NavigationProperty Name="uzytkownik" Relationship="Self.FK__odsluch__uzytkow__48CFD27E" FromRole="odsluch" ToRole="uzytkownik" />
+        </EntityType>
+        <EntityType Name="planUzytkownik">
+          <Key>
+            <PropertyRef Name="planUzytkownikid" />
+          </Key>
+          <Property Name="planUzytkownikid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="uzytkownikId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="planId" Type="Int32" />
+          <Property Name="dataKupnaPakietu" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="plany" Relationship="Self.FK__planUzytk__planI__403A8C7D" FromRole="planUzytkownik" ToRole="plany" />
+          <NavigationProperty Name="uzytkownik" Relationship="Self.FK__planUzytk__uzytk__3F466844" FromRole="planUzytkownik" ToRole="uzytkownik" />
+        </EntityType>
+        <EntityType Name="plany">
+          <Key>
+            <PropertyRef Name="planId" />
+          </Key>
+          <Property Name="planId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="iloscPiosenek" Type="Int32" Nullable="false" />
+          <Property Name="cena" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="nazwa" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="planUzytkownik" Relationship="Self.FK__planUzytk__planI__403A8C7D" FromRole="plany" ToRole="planUzytkownik" />
+        </EntityType>
+        <EntityType Name="przynaleznosc">
+          <Key>
+            <PropertyRef Name="przynaleznoscId" />
+          </Key>
+          <Property Name="przynaleznoscId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="albumId" Type="Int32" />
+          <Property Name="utworId" Type="Int32" />
+          <NavigationProperty Name="album" Relationship="Self.FK__przynalez__album__5535A963" FromRole="przynaleznosc" ToRole="album" />
+          <NavigationProperty Name="utwor" Relationship="Self.FK__przynalez__utwor__5629CD9C" FromRole="przynaleznosc" ToRole="utwor" />
+        </EntityType>
+        <EntityType Name="utwor">
+          <Key>
+            <PropertyRef Name="utworId" />
+          </Key>
+          <Property Name="utworId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nazwa" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="dlugosc" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="odsluch" Relationship="Self.FK__odsluch__utworId__49C3F6B7" FromRole="utwor" ToRole="odsluch" />
+          <NavigationProperty Name="przynaleznosc" Relationship="Self.FK__przynalez__utwor__5629CD9C" FromRole="utwor" ToRole="przynaleznosc" />
+          <NavigationProperty Name="wykonanie" Relationship="Self.FK__wykonanie__utwor__4E88ABD4" FromRole="utwor" ToRole="wykonanie" />
+        </EntityType>
+        <EntityType Name="uzytkownik">
+          <Key>
+            <PropertyRef Name="uzytkownikId" />
+          </Key>
+          <Property Name="uzytkownikId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="imie" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nazwisko" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="kraj" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dataUrodzenia" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="miejscowosc" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rodzajMiejscowosci" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="plec" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PozostalaIlosc" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="odsluch" Relationship="Self.FK__odsluch__uzytkow__48CFD27E" FromRole="uzytkownik" ToRole="odsluch" />
+          <NavigationProperty Name="planUzytkownik" Relationship="Self.FK__planUzytk__uzytk__3F466844" FromRole="uzytkownik" ToRole="planUzytkownik" />
+        </EntityType>
+        <EntityType Name="wykonanie">
+          <Key>
+            <PropertyRef Name="wykonanieId" />
+          </Key>
+          <Property Name="wykonanieId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="artystaId" Type="Int32" />
+          <Property Name="utworId" Type="Int32" />
+          <NavigationProperty Name="artysta" Relationship="Self.FK__wykonanie__artys__4D94879B" FromRole="wykonanie" ToRole="artysta" />
+          <NavigationProperty Name="utwor" Relationship="Self.FK__wykonanie__utwor__4E88ABD4" FromRole="wykonanie" ToRole="utwor" />
+        </EntityType>
+        <Association Name="FK__album__artystaId__52593CB8">
+          <End Role="artysta" Type="Self.artysta" Multiplicity="0..1" />
+          <End Role="album" Type="Self.album" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artysta">
+              <PropertyRef Name="artystaId" />
+            </Principal>
+            <Dependent Role="album">
+              <PropertyRef Name="artystaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__album__gatunekId__5165187F">
+          <End Role="gatunek" Type="Self.gatunek" Multiplicity="0..1" />
+          <End Role="album" Type="Self.album" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gatunek">
+              <PropertyRef Name="gatunekId" />
+            </Principal>
+            <Dependent Role="album">
+              <PropertyRef Name="gatunekId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__przynalez__album__5535A963">
+          <End Role="album" Type="Self.album" Multiplicity="0..1" />
+          <End Role="przynaleznosc" Type="Self.przynaleznosc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="album">
+              <PropertyRef Name="albumId" />
+            </Principal>
+            <Dependent Role="przynaleznosc">
+              <PropertyRef Name="albumId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__wykonanie__artys__4D94879B">
+          <End Role="artysta" Type="Self.artysta" Multiplicity="0..1" />
+          <End Role="wykonanie" Type="Self.wykonanie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artysta">
+              <PropertyRef Name="artystaId" />
+            </Principal>
+            <Dependent Role="wykonanie">
+              <PropertyRef Name="artystaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__odsluch__utworId__49C3F6B7">
+          <End Role="utwor" Type="Self.utwor" Multiplicity="0..1" />
+          <End Role="odsluch" Type="Self.odsluch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="utwor">
+              <PropertyRef Name="utworId" />
+            </Principal>
+            <Dependent Role="odsluch">
+              <PropertyRef Name="utworId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__odsluch__uzytkow__48CFD27E">
+          <End Role="uzytkownik" Type="Self.uzytkownik" Multiplicity="0..1" />
+          <End Role="odsluch" Type="Self.odsluch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uzytkownik">
+              <PropertyRef Name="uzytkownikId" />
+            </Principal>
+            <Dependent Role="odsluch">
+              <PropertyRef Name="uzytkownikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__planUzytk__planI__403A8C7D">
+          <End Role="plany" Type="Self.plany" Multiplicity="0..1" />
+          <End Role="planUzytkownik" Type="Self.planUzytkownik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="plany">
+              <PropertyRef Name="planId" />
+            </Principal>
+            <Dependent Role="planUzytkownik">
+              <PropertyRef Name="planId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__planUzytk__uzytk__3F466844">
+          <End Role="uzytkownik" Type="Self.uzytkownik" Multiplicity="0..1" />
+          <End Role="planUzytkownik" Type="Self.planUzytkownik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uzytkownik">
+              <PropertyRef Name="uzytkownikId" />
+            </Principal>
+            <Dependent Role="planUzytkownik">
+              <PropertyRef Name="uzytkownikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__przynalez__utwor__5629CD9C">
+          <End Role="utwor" Type="Self.utwor" Multiplicity="0..1" />
+          <End Role="przynaleznosc" Type="Self.przynaleznosc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="utwor">
+              <PropertyRef Name="utworId" />
+            </Principal>
+            <Dependent Role="przynaleznosc">
+              <PropertyRef Name="utworId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__wykonanie__utwor__4E88ABD4">
+          <End Role="utwor" Type="Self.utwor" Multiplicity="0..1" />
+          <End Role="wykonanie" Type="Self.wykonanie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="utwor">
+              <PropertyRef Name="utworId" />
+            </Principal>
+            <Dependent Role="wykonanie">
+              <PropertyRef Name="utworId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SerwisMuzycznyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="album" EntityType="Self.album" />
+          <EntitySet Name="artysta" EntityType="Self.artysta" />
+          <EntitySet Name="gatunek" EntityType="Self.gatunek" />
+          <EntitySet Name="odsluch" EntityType="Self.odsluch" />
+          <EntitySet Name="planUzytkownik" EntityType="Self.planUzytkownik" />
+          <EntitySet Name="plany" EntityType="Self.plany" />
+          <EntitySet Name="przynaleznosc" EntityType="Self.przynaleznosc" />
+          <EntitySet Name="utwor" EntityType="Self.utwor" />
+          <EntitySet Name="uzytkownik" EntityType="Self.uzytkownik" />
+          <EntitySet Name="wykonanie" EntityType="Self.wykonanie" />
+          <AssociationSet Name="FK__album__artystaId__52593CB8" Association="Self.FK__album__artystaId__52593CB8">
+            <End Role="artysta" EntitySet="artysta" />
+            <End Role="album" EntitySet="album" />
+          </AssociationSet>
+          <AssociationSet Name="FK__album__gatunekId__5165187F" Association="Self.FK__album__gatunekId__5165187F">
+            <End Role="gatunek" EntitySet="gatunek" />
+            <End Role="album" EntitySet="album" />
+          </AssociationSet>
+          <AssociationSet Name="FK__przynalez__album__5535A963" Association="Self.FK__przynalez__album__5535A963">
+            <End Role="album" EntitySet="album" />
+            <End Role="przynaleznosc" EntitySet="przynaleznosc" />
+          </AssociationSet>
+          <AssociationSet Name="FK__wykonanie__artys__4D94879B" Association="Self.FK__wykonanie__artys__4D94879B">
+            <End Role="artysta" EntitySet="artysta" />
+            <End Role="wykonanie" EntitySet="wykonanie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__odsluch__utworId__49C3F6B7" Association="Self.FK__odsluch__utworId__49C3F6B7">
+            <End Role="utwor" EntitySet="utwor" />
+            <End Role="odsluch" EntitySet="odsluch" />
+          </AssociationSet>
+          <AssociationSet Name="FK__odsluch__uzytkow__48CFD27E" Association="Self.FK__odsluch__uzytkow__48CFD27E">
+            <End Role="uzytkownik" EntitySet="uzytkownik" />
+            <End Role="odsluch" EntitySet="odsluch" />
+          </AssociationSet>
+          <AssociationSet Name="FK__planUzytk__planI__403A8C7D" Association="Self.FK__planUzytk__planI__403A8C7D">
+            <End Role="plany" EntitySet="plany" />
+            <End Role="planUzytkownik" EntitySet="planUzytkownik" />
+          </AssociationSet>
+          <AssociationSet Name="FK__planUzytk__uzytk__3F466844" Association="Self.FK__planUzytk__uzytk__3F466844">
+            <End Role="uzytkownik" EntitySet="uzytkownik" />
+            <End Role="planUzytkownik" EntitySet="planUzytkownik" />
+          </AssociationSet>
+          <AssociationSet Name="FK__przynalez__utwor__5629CD9C" Association="Self.FK__przynalez__utwor__5629CD9C">
+            <End Role="utwor" EntitySet="utwor" />
+            <End Role="przynaleznosc" EntitySet="przynaleznosc" />
+          </AssociationSet>
+          <AssociationSet Name="FK__wykonanie__utwor__4E88ABD4" Association="Self.FK__wykonanie__utwor__4E88ABD4">
+            <End Role="utwor" EntitySet="utwor" />
+            <End Role="wykonanie" EntitySet="wykonanie" />
+          </AssociationSet>
+          <FunctionImport Name="dodaj_album">
+            <Parameter Name="nazwa" Mode="In" Type="String" />
+            <Parameter Name="data" Mode="In" Type="DateTime" />
+            <Parameter Name="nazwa_gatunku" Mode="In" Type="String" />
+            <Parameter Name="pseudonim" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dodaj_artyste">
+          <Parameter Name="pseudonim" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dodaj_gatunek">
+          <Parameter Name="nazwa" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dodaj_odsluch">
+            <Parameter Name="uztkownikId" Mode="In" Type="String" />
+            <Parameter Name="utworId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dodaj_przynaleznosc">
+            <Parameter Name="albumId" Mode="In" Type="Int32" />
+            <Parameter Name="utworId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dodaj_utwor">
+            <Parameter Name="nazwa" Mode="In" Type="String" />
+            <Parameter Name="dlugosc" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dodaj_uzytkownika">
+            <Parameter Name="nick" Mode="In" Type="String" />
+            <Parameter Name="imie" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="nazwisko" Mode="In" Type="String" />
+            <Parameter Name="kraj" Mode="In" Type="String" />
+            <Parameter Name="dataUrodzenia" Mode="In" Type="DateTime" />
+            <Parameter Name="miejscowosc" Mode="In" Type="String" />
+            <Parameter Name="rodzajMiejscowosci" Mode="In" Type="String" />
+            <Parameter Name="plec" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dodaj_wykonanie">
+            <Parameter Name="artystaId" Mode="In" Type="Int32" />
+            <Parameter Name="utworId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dodajPlan">
+            <Parameter Name="iloscPiosenek" Mode="In" Type="Int32" />
+            <Parameter Name="cena" Mode="In" Type="Decimal" />
+            <Parameter Name="nazwa" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dodajPlanUzytkownik">
+            <Parameter Name="idUzytkowni" Mode="In" Type="String" />
+            <Parameter Name="idPlan" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="liczba_albumow_artysty">
+          <Parameter Name="pseudonim" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="liczba_dni_odtwarzania_utworu">
+          <Parameter Name="utworId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="liczba_utworow_album">
+            <Parameter Name="nazwa" Mode="In" Type="String" />
+            <Parameter Name="pseudonim" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="liczba_utworow_artysty">
+          <Parameter Name="pseudonim" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="liczba_utworow_danego_gatunku">
+          <Parameter Name="nazwa" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="liczba_utworow_odtowrzonych_przez_uzytkownika">
+          <Parameter Name="imie" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="liczba_uzytkownikow_ktorzy_odtworzyli_utwor">
+            <Parameter Name="nazwa" Mode="In" Type="String" />
+            <Parameter Name="pseudonim" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="najpopularniejsze_w_kraju" ReturnType="Collection(SerwisMuzycznyModel.najpopularniejsze_w_kraju_Result)" />
+          <FunctionImport Name="napopularniejsi_artysci" ReturnType="Collection(SerwisMuzycznyModel.napopularniejsi_artysci_Result)">
+          <Parameter Name="liczbaDni" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="srednia_odtworzen" />
+          <FunctionImport Name="wiecej_niz_srednia" ReturnType="Collection(SerwisMuzycznyModel.wiecej_niz_srednia_Result)" />
+        </EntityContainer>
+        <ComplexType Name="najpopularniejsze_w_kraju_Result">
+          <Property Type="Int32" Name="WskaznikPopularnosci" Nullable="true" />
+          <Property Type="String" Name="nazwa" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="kraj" Nullable="false" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="napopularniejsi_artysci_Result">
+          <Property Type="Int32" Name="liczbaOdtworzen" Nullable="true" />
+          <Property Type="String" Name="pseudonim" Nullable="true" MaxLength="40" />
+        </ComplexType>
+        <ComplexType Name="wiecej_niz_srednia_Result">
+          <Property Type="Int32" Name="utworId" Nullable="false" />
+          <Property Type="String" Name="nazwa" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="dlugosc" Nullable="true" MaxLength="8" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SerwisMuzycznyModelStoreContainer" CdmEntityContainer="SerwisMuzycznyEntities">
+          <EntitySetMapping Name="album">
+            <EntityTypeMapping TypeName="SerwisMuzycznyModel.album">
+              <MappingFragment StoreEntitySet="album">
+                <ScalarProperty Name="albumId" ColumnName="albumId" />
+                <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+                <ScalarProperty Name="dataWydania" ColumnName="dataWydania" />
+                <ScalarProperty Name="gatunekId" ColumnName="gatunekId" />
+                <ScalarProperty Name="artystaId" ColumnName="artystaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="artysta">
+            <EntityTypeMapping TypeName="SerwisMuzycznyModel.artysta">
+              <MappingFragment StoreEntitySet="artysta">
+                <ScalarProperty Name="artystaId" ColumnName="artystaId" />
+                <ScalarProperty Name="pseudonim" ColumnName="pseudonim" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="gatunek">
+            <EntityTypeMapping TypeName="SerwisMuzycznyModel.gatunek">
+              <MappingFragment StoreEntitySet="gatunek">
+                <ScalarProperty Name="gatunekId" ColumnName="gatunekId" />
+                <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="odsluch">
+            <EntityTypeMapping TypeName="SerwisMuzycznyModel.odsluch">
+              <MappingFragment StoreEntitySet="odsluch">
+                <ScalarProperty Name="odsluchId" ColumnName="odsluchId" />
+                <ScalarProperty Name="uzytkownikId" ColumnName="uzytkownikId" />
+                <ScalarProperty Name="utworId" ColumnName="utworId" />
+                <ScalarProperty Name="dataOdtworzenia" ColumnName="dataOdtworzenia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="planUzytkownik">
+            <EntityTypeMapping TypeName="SerwisMuzycznyModel.planUzytkownik">
+              <MappingFragment StoreEntitySet="planUzytkownik">
+                <ScalarProperty Name="planUzytkownikid" ColumnName="planUzytkownikid" />
+                <ScalarProperty Name="uzytkownikId" ColumnName="uzytkownikId" />
+                <ScalarProperty Name="planId" ColumnName="planId" />
+                <ScalarProperty Name="dataKupnaPakietu" ColumnName="dataKupnaPakietu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="plany">
+            <EntityTypeMapping TypeName="SerwisMuzycznyModel.plany">
+              <MappingFragment StoreEntitySet="plany">
+                <ScalarProperty Name="planId" ColumnName="planId" />
+                <ScalarProperty Name="iloscPiosenek" ColumnName="iloscPiosenek" />
+                <ScalarProperty Name="cena" ColumnName="cena" />
+                <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="przynaleznosc">
+            <EntityTypeMapping TypeName="SerwisMuzycznyModel.przynaleznosc">
+              <MappingFragment StoreEntitySet="przynaleznosc">
+                <ScalarProperty Name="przynaleznoscId" ColumnName="przynaleznoscId" />
+                <ScalarProperty Name="albumId" ColumnName="albumId" />
+                <ScalarProperty Name="utworId" ColumnName="utworId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="utwor">
+            <EntityTypeMapping TypeName="SerwisMuzycznyModel.utwor">
+              <MappingFragment StoreEntitySet="utwor">
+                <ScalarProperty Name="utworId" ColumnName="utworId" />
+                <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+                <ScalarProperty Name="dlugosc" ColumnName="dlugosc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="uzytkownik">
+            <EntityTypeMapping TypeName="SerwisMuzycznyModel.uzytkownik">
+              <MappingFragment StoreEntitySet="uzytkownik">
+                <ScalarProperty Name="uzytkownikId" ColumnName="uzytkownikId" />
+                <ScalarProperty Name="imie" ColumnName="imie" />
+                <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="kraj" ColumnName="kraj" />
+                <ScalarProperty Name="dataUrodzenia" ColumnName="dataUrodzenia" />
+                <ScalarProperty Name="miejscowosc" ColumnName="miejscowosc" />
+                <ScalarProperty Name="rodzajMiejscowosci" ColumnName="rodzajMiejscowosci" />
+                <ScalarProperty Name="plec" ColumnName="plec" />
+                <ScalarProperty Name="PozostalaIlosc" ColumnName="PozostalaIlosc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="wykonanie">
+            <EntityTypeMapping TypeName="SerwisMuzycznyModel.wykonanie">
+              <MappingFragment StoreEntitySet="wykonanie">
+                <ScalarProperty Name="wykonanieId" ColumnName="wykonanieId" />
+                <ScalarProperty Name="artystaId" ColumnName="artystaId" />
+                <ScalarProperty Name="utworId" ColumnName="utworId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="dodaj_album" FunctionName="SerwisMuzycznyModel.Store.dodaj_album" />
+          <FunctionImportMapping FunctionImportName="dodaj_artyste" FunctionName="SerwisMuzycznyModel.Store.dodaj_artyste" />
+          <FunctionImportMapping FunctionImportName="dodaj_gatunek" FunctionName="SerwisMuzycznyModel.Store.dodaj_gatunek" />
+          <FunctionImportMapping FunctionImportName="dodaj_odsluch" FunctionName="SerwisMuzycznyModel.Store.dodaj_odsluch" />
+          <FunctionImportMapping FunctionImportName="dodaj_przynaleznosc" FunctionName="SerwisMuzycznyModel.Store.dodaj_przynaleznosc" />
+          <FunctionImportMapping FunctionImportName="dodaj_utwor" FunctionName="SerwisMuzycznyModel.Store.dodaj_utwor" />
+          <FunctionImportMapping FunctionImportName="dodaj_uzytkownika" FunctionName="SerwisMuzycznyModel.Store.dodaj_uzytkownika" />
+          <FunctionImportMapping FunctionImportName="dodaj_wykonanie" FunctionName="SerwisMuzycznyModel.Store.dodaj_wykonanie" />
+          <FunctionImportMapping FunctionImportName="dodajPlan" FunctionName="SerwisMuzycznyModel.Store.dodajPlan" />
+          <FunctionImportMapping FunctionImportName="dodajPlanUzytkownik" FunctionName="SerwisMuzycznyModel.Store.dodajPlanUzytkownik" />
+          <FunctionImportMapping FunctionImportName="liczba_albumow_artysty" FunctionName="SerwisMuzycznyModel.Store.liczba_albumow_artysty" />
+          <FunctionImportMapping FunctionImportName="liczba_dni_odtwarzania_utworu" FunctionName="SerwisMuzycznyModel.Store.liczba_dni_odtwarzania_utworu" />
+          <FunctionImportMapping FunctionImportName="liczba_utworow_album" FunctionName="SerwisMuzycznyModel.Store.liczba_utworow_album" />
+          <FunctionImportMapping FunctionImportName="liczba_utworow_artysty" FunctionName="SerwisMuzycznyModel.Store.liczba_utworow_artysty" />
+          <FunctionImportMapping FunctionImportName="liczba_utworow_danego_gatunku" FunctionName="SerwisMuzycznyModel.Store.liczba_utworow_danego_gatunku" />
+          <FunctionImportMapping FunctionImportName="liczba_utworow_odtowrzonych_przez_uzytkownika" FunctionName="SerwisMuzycznyModel.Store.liczba_utworow_odtowrzonych_przez_uzytkownika" />
+          <FunctionImportMapping FunctionImportName="liczba_uzytkownikow_ktorzy_odtworzyli_utwor" FunctionName="SerwisMuzycznyModel.Store.liczba_uzytkownikow_ktorzy_odtworzyli_utwor" />
+          <FunctionImportMapping FunctionImportName="najpopularniejsze_w_kraju" FunctionName="SerwisMuzycznyModel.Store.najpopularniejsze_w_kraju">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SerwisMuzycznyModel.najpopularniejsze_w_kraju_Result">
+                <ScalarProperty Name="WskaznikPopularnosci" ColumnName="WskaznikPopularnosci" />
+                <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+                <ScalarProperty Name="kraj" ColumnName="kraj" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="napopularniejsi_artysci" FunctionName="SerwisMuzycznyModel.Store.napopularniejsi_artysci">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SerwisMuzycznyModel.napopularniejsi_artysci_Result">
+                <ScalarProperty Name="liczbaOdtworzen" ColumnName="liczbaOdtworzen" />
+                <ScalarProperty Name="pseudonim" ColumnName="pseudonim" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="srednia_odtworzen" FunctionName="SerwisMuzycznyModel.Store.srednia_odtworzen" />
+          <FunctionImportMapping FunctionImportName="wiecej_niz_srednia" FunctionName="SerwisMuzycznyModel.Store.wiecej_niz_srednia">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SerwisMuzycznyModel.wiecej_niz_srednia_Result">
+                <ScalarProperty Name="utworId" ColumnName="utworId" />
+                <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+                <ScalarProperty Name="dlugosc" ColumnName="dlugosc" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

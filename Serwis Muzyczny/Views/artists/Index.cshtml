@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Serwis_Muzyczny.Models.artysta>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.pseudonim)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.pseudonim)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.artystaId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.artystaId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.artystaId })
+        </td>
+    </tr>
+}
+
+</table>

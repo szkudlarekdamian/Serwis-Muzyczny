@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Serwis_Muzyczny.Models.plany>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.iloscPiosenek)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cena)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nazwa)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.iloscPiosenek)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cena)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nazwa)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.planId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.planId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.planId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="77c991473eb04be59cf2c87767ec93e2" Name="Diagram1">
+        <EntityTypeShape EntityType="SerwisMuzycznyModel.album" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SerwisMuzycznyModel.artysta" Width="1.5" PointX="1.5" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SerwisMuzycznyModel.gatunek" Width="1.5" PointX="1.5" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SerwisMuzycznyModel.odsluch" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SerwisMuzycznyModel.planUzytkownik" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SerwisMuzycznyModel.plany" Width="1.5" PointX="0.75" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SerwisMuzycznyModel.przynaleznosc" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SerwisMuzycznyModel.utwor" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SerwisMuzycznyModel.uzytkownik" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SerwisMuzycznyModel.wykonanie" Width="1.5" PointX="3" PointY="9.875" IsExpanded="true" />
+        <AssociationConnector Association="SerwisMuzycznyModel.FK__album__artystaId__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="SerwisMuzycznyModel.FK__album__gatunekId__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="SerwisMuzycznyModel.FK__przynalez__album__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="SerwisMuzycznyModel.FK__wykonanie__artys__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="SerwisMuzycznyModel.FK__odsluch__utworId__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="SerwisMuzycznyModel.FK__odsluch__uzytkow__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="SerwisMuzycznyModel.FK__planUzytk__planI__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="SerwisMuzycznyModel.FK__planUzytk__uzytk__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="SerwisMuzycznyModel.FK__przynalez__utwor__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="SerwisMuzycznyModel.FK__wykonanie__utwor__4E88ABD4" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
