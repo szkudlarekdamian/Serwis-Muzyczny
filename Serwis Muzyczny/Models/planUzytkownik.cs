@@ -16,8 +16,8 @@ namespace Serwis_Muzyczny.Models
     {
         public int planUzytkownikid { get; set; }
         public string uzytkownikId { get; set; }
-        public Nullable<int> planId { get; set; }
-        public Nullable<System.DateTime> dataKupnaPakietu { get; set; }
+        public int planId { get; set; }
+        public System.DateTime dataKupnaPakietu { get; set; }
     
         public virtual plany plany { get; set; }
         public virtual uzytkownik uzytkownik { get; set; }

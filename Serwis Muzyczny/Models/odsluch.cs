@@ -16,7 +16,7 @@ namespace Serwis_Muzyczny.Models
     {
         public int odsluchId { get; set; }
         public string uzytkownikId { get; set; }
-        public Nullable<int> utworId { get; set; }
+        public int utworId { get; set; }
         public System.DateTime dataOdtworzenia { get; set; }
     
         public virtual utwor utwor { get; set; }

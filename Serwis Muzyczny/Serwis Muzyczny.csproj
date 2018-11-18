@@ -215,6 +215,9 @@
     <Compile Include="Models\utwor.cs">
       <DependentUpon>SerwisMuzycznyModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\utwory_z_albumu_Result.cs">
+      <DependentUpon>SerwisMuzycznyModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\uzytkownik.cs">
       <DependentUpon>SerwisMuzycznyModel.tt</DependentUpon>
     </Compile>
@@ -237,8 +240,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Models\SerwisMuzycznyModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>SerwisMuzycznyModel.Context.cs</LastGenOutput>
       <DependentUpon>SerwisMuzycznyModel.edmx</DependentUpon>
+      <LastGenOutput>SerwisMuzycznyModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\SerwisMuzycznyModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -333,6 +336,8 @@
     <Content Include="Views\artists\Edit.cshtml" />
     <Content Include="Views\artists\Index.cshtml" />
     <Content Include="Views\artists\mostPopular.cshtml" />
+    <Content Include="Views\albums\SongsFromAlbum.cshtml" />
+    <Content Include="Views\albums\CreateByProcedure.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

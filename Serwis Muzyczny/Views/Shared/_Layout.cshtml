@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -22,7 +22,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
                     <li>@Html.ActionLink("Użytkownicy", "Index", "users")</li>
-                    <li>@Html.ActionLink("Artyści", "Index", "arthists")</li>
+                    <li>@Html.ActionLink("Artyści", "Index", "artists")</li>
                     <li>@Html.ActionLink("Utwory", "Index", "songs")</li>
                     <li>@Html.ActionLink("Albumy", "Index", "albums")</li>
                     <li>@Html.ActionLink("Gatunki", "Index", "genre")</li>

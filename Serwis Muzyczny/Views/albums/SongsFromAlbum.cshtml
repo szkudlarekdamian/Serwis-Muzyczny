@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Serwis_Muzyczny.Models.utwory_z_albumu_Result>
+
+@{
+    ViewBag.Title = @ViewBag.ReturnUrl;
+}
+
+<h2>Utwory z @ViewBag.ReturnUrl</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Tytuł
+        </th>
+        <th>
+            Czas trwania
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nazwa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Długość)
+            </td>
+
+        </tr>
+    }
+
+</table>

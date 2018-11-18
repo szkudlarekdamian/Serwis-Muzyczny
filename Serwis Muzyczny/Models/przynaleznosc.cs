@@ -15,8 +15,8 @@ namespace Serwis_Muzyczny.Models
     public partial class przynaleznosc
     {
         public int przynaleznoscId { get; set; }
-        public Nullable<int> albumId { get; set; }
-        public Nullable<int> utworId { get; set; }
+        public int albumId { get; set; }
+        public int utworId { get; set; }
     
         public virtual album album { get; set; }
         public virtual utwor utwor { get; set; }

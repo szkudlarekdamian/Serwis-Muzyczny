@@ -10,7 +10,8 @@ namespace Serwis_Muzyczny.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return Redirect("/albums");
+            //return View();
         }
 
         public ActionResult About()
