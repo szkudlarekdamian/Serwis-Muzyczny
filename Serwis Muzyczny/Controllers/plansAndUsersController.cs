@@ -52,7 +52,21 @@ namespace Serwis_Muzyczny.Controllers
             if (ModelState.IsValid)
             {
                 db.planUzytkownik.Add(planUzytkownik);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch(Exception e)
+                {
+                    if(e.InnerException == null)
+                        ViewBag.Exception = "Nieoczekiwany błąd.";
+                    else
+                        ViewBag.Exception = e.InnerException.InnerException.Message;
+
+                    ViewBag.planId = new SelectList(db.plany, "planId", "nazwa", planUzytkownik.planId);
+                    ViewBag.uzytkownikId = new SelectList(db.uzytkownik, "uzytkownikId", "imie", planUzytkownik.uzytkownikId);
+                    return View(planUzytkownik);
+                }
                 return RedirectToAction("Index");
             }
 

@@ -103,16 +103,15 @@ namespace Serwis_Muzyczny.Controllers
             ViewBag.Exception = null;
             if (ModelState.IsValid)
             {
-                var gatun = db.gatunek.Where(x => x.gatunekId == album.gatunekId).Select(y => y.nazwa).ToList().ElementAt(0).ToString();
-                var pseudo = db.artysta.Where(x => x.artystaId == album.artystaId).Select(y => y.pseudonim).ToList().ElementAt(0).ToString();
-                int retCode = db.dodaj_album(album.nazwa, album.dataWydania, gatun, pseudo);
+                //var gatun = db.gatunek.Where(x => x.gatunekId == album.gatunekId).Select(y => y.nazwa).ToList().ElementAt(0).ToString();
+                //var pseudo = db.artysta.Where(x => x.artystaId == album.artystaId).Select(y => y.pseudonim).ToList().ElementAt(0).ToString();
+                //int retCode = db.dodaj_album(album.nazwa, album.dataWydania, gatun, pseudo);
+                // To co zakomentowałem było powodem bug'a, nie łapało poprawnie wyjątku z bd 
+                db.album.Add(album);
 
                 try
                 {
                     db.SaveChanges();
-                    //LINQ lub procedura
-
-                    //int retCode = db.dodaj_album(album.nazwa, album.dataWydania, ViewBag.gatunekId, ViewBag.artystaId);
                 }
                 catch (Exception e)
                 {

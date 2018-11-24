@@ -44,12 +44,19 @@ namespace Serwis_Muzyczny.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "uzytkownikId,imie,nazwisko,email,kraj,dataUrodzenia,miejscowosc,rodzajMiejscowosci,plec,PozostalaIlosc")] uzytkownik uzytkownik)
+        public ActionResult Create([Bind(Include = "uzytkownikId,imie,nazwisko,email,kraj,dataUrodzenia,miejscowosc,rodzajMiejscowosci,plec,0")] uzytkownik uzytkownik)
         {
             if (ModelState.IsValid)
             {
                 db.uzytkownik.Add(uzytkownik);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }catch(Exception e)
+                {
+                    ViewBag.Exception = e.InnerException.InnerException.Message;
+                    return View(uzytkownik);
+                }
                 return RedirectToAction("Index");
             }
 
