@@ -12,9 +12,7 @@ namespace Serwis_Muzyczny.Controllers
 {
     public class genreController : Controller
     {
-        private SerwisMuzycznyEntities db = new SerwisMuzycznyEntities();
-
-        // GET: genre
+        private SerwisMuzycznyEntities db = new SerwisMuzycznyEntities();        // GET: genre
         public ActionResult Index()
         {
             return View(db.gatunek.ToList());

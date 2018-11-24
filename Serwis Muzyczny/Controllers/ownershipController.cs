@@ -12,9 +12,7 @@ namespace Serwis_Muzyczny.Controllers
 {
     public class ownershipController : Controller
     {
-        private SerwisMuzycznyEntities db = new SerwisMuzycznyEntities();
-
-        // GET: ownership
+        private SerwisMuzycznyEntities db = new SerwisMuzycznyEntities();        // GET: ownership
         public ActionResult Index()
         {
             var przynaleznosc = db.przynaleznosc.Include(p => p.album).Include(p => p.utwor);

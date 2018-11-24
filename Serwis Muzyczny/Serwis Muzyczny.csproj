@@ -253,6 +253,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="BackupBazy\SerwisMuzyczny.bak" />
     <EntityDeploy Include="Models\SerwisMuzycznyModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SerwisMuzycznyModel.Designer.cs</LastGenOutput>

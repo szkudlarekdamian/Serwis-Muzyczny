@@ -11,8 +11,7 @@ namespace Serwis_Muzyczny.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class album
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,26 +19,13 @@ namespace Serwis_Muzyczny.Models
         {
             this.przynaleznosc = new HashSet<przynaleznosc>();
         }
-
+    
         public int albumId { get; set; }
-        [Display(Name = "Tytul")]
-        [Required(ErrorMessage = "Tytul nie moze byc pusty")]
-        [MaxLength(60, ErrorMessage = "Maksymalna dlugosc tytulu wynosi 60")]
         public string nazwa { get; set; }
-
-        [Display(Name = "Data wydania")]
-        [Required(ErrorMessage = "Data nie moze byc pusta!")]
-        [Serwis_Muzyczny.App_Start.Validation.FutureDate(ErrorMessage ="Data nie mo¿e byæ z przysz³oœci!")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime dataWydania { get; set; }
-
-        [Display(Name = "Gatunek")]
+        public System.DateTime dataWydania { get; set; }
         public int gatunekId { get; set; }
-
-        [Display(Name = "Artysta")]
         public int artystaId { get; set; }
-
+    
         public virtual artysta artysta { get; set; }
         public virtual gatunek gatunek { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

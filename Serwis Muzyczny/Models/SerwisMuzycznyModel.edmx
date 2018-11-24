@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SerwisMuzycznyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SerwisMuzycznyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="album">
           <Key>
             <PropertyRef Name="albumId" />
@@ -46,6 +46,7 @@
           <Property Name="uzytkownikId" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="planId" Type="int" Nullable="false" />
           <Property Name="dataKupnaPakietu" Type="date" Nullable="false" />
+          <Property Name="rabat" Type="tinyint" />
         </EntityType>
         <EntityType Name="plany">
           <Key>
@@ -143,18 +144,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__planUzytk__planI__05D8E0BE">
-          <End Role="plany" Type="Self.plany" Multiplicity="1" />
-          <End Role="planUzytkownik" Type="Self.planUzytkownik" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="plany">
-              <PropertyRef Name="planId" />
-            </Principal>
-            <Dependent Role="planUzytkownik">
-              <PropertyRef Name="planId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__planUzytk__uzytk__04E4BC85">
           <End Role="uzytkownik" Type="Self.uzytkownik" Multiplicity="1" />
           <End Role="planUzytkownik" Type="Self.planUzytkownik" Multiplicity="*" />
@@ -215,6 +204,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_plan_uzytkownik">
+          <End Role="plany" Type="Self.plany" Multiplicity="1" />
+          <End Role="planUzytkownik" Type="Self.planUzytkownik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="plany">
+              <PropertyRef Name="planId" />
+            </Principal>
+            <Dependent Role="planUzytkownik">
+              <PropertyRef Name="planId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="dodaj_album" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nazwa" Type="varchar" Mode="In" />
           <Parameter Name="data" Type="date" Mode="In" />
@@ -268,6 +269,10 @@
         </Function>
         <Function Name="liczba_dni_odtwarzania_utworu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="utworId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="liczba_odsluchan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="varchar" Mode="In" />
+          <Parameter Name="days" Type="int" Mode="In" />
         </Function>
         <Function Name="liczba_utworow_album" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nazwa" Type="varchar" Mode="In" />
@@ -326,10 +331,6 @@
             <End Role="uzytkownik" EntitySet="uzytkownik" />
             <End Role="odsluch" EntitySet="odsluch" />
           </AssociationSet>
-          <AssociationSet Name="FK__planUzytk__planI__05D8E0BE" Association="Self.FK__planUzytk__planI__05D8E0BE">
-            <End Role="plany" EntitySet="plany" />
-            <End Role="planUzytkownik" EntitySet="planUzytkownik" />
-          </AssociationSet>
           <AssociationSet Name="FK__planUzytk__uzytk__04E4BC85" Association="Self.FK__planUzytk__uzytk__04E4BC85">
             <End Role="uzytkownik" EntitySet="uzytkownik" />
             <End Role="planUzytkownik" EntitySet="planUzytkownik" />
@@ -350,8 +351,13 @@
             <End Role="utwor" EntitySet="utwor" />
             <End Role="wykonanie" EntitySet="wykonanie" />
           </AssociationSet>
+          <AssociationSet Name="fk_plan_uzytkownik" Association="Self.fk_plan_uzytkownik">
+            <End Role="plany" EntitySet="plany" />
+            <End Role="planUzytkownik" EntitySet="planUzytkownik" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SerwisMuzycznyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -404,8 +410,9 @@
           <Property Name="uzytkownikId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="planId" Type="Int32" Nullable="false" />
           <Property Name="dataKupnaPakietu" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="plany" Relationship="Self.FK__planUzytk__planI__05D8E0BE" FromRole="planUzytkownik" ToRole="plany" />
+          <Property Name="rabat" Type="Byte" />
           <NavigationProperty Name="uzytkownik" Relationship="Self.FK__planUzytk__uzytk__04E4BC85" FromRole="planUzytkownik" ToRole="uzytkownik" />
+          <NavigationProperty Name="plany" Relationship="Self.fk_plan_uzytkownik" FromRole="planUzytkownik" ToRole="plany" />
         </EntityType>
         <EntityType Name="plany">
           <Key>
@@ -415,7 +422,7 @@
           <Property Name="iloscPiosenek" Type="Int32" Nullable="false" />
           <Property Name="cena" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="nazwa" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="planUzytkownik" Relationship="Self.FK__planUzytk__planI__05D8E0BE" FromRole="plany" ToRole="planUzytkownik" />
+          <NavigationProperty Name="planUzytkownik" Relationship="Self.fk_plan_uzytkownik" FromRole="plany" ToRole="planUzytkownik" />
         </EntityType>
         <EntityType Name="przynaleznosc">
           <Key>
@@ -537,18 +544,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__planUzytk__planI__05D8E0BE">
-          <End Role="plany" Type="Self.plany" Multiplicity="1" />
-          <End Role="planUzytkownik" Type="Self.planUzytkownik" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="plany">
-              <PropertyRef Name="planId" />
-            </Principal>
-            <Dependent Role="planUzytkownik">
-              <PropertyRef Name="planId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__planUzytk__uzytk__04E4BC85">
           <End Role="uzytkownik" Type="Self.uzytkownik" Multiplicity="1" />
           <End Role="planUzytkownik" Type="Self.planUzytkownik" Multiplicity="*" />
@@ -558,6 +553,18 @@
             </Principal>
             <Dependent Role="planUzytkownik">
               <PropertyRef Name="uzytkownikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_plan_uzytkownik">
+          <End Role="plany" Type="Self.plany" Multiplicity="1" />
+          <End Role="planUzytkownik" Type="Self.planUzytkownik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="plany">
+              <PropertyRef Name="planId" />
+            </Principal>
+            <Dependent Role="planUzytkownik">
+              <PropertyRef Name="planId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -620,12 +627,12 @@
             <End Role="uzytkownik" EntitySet="uzytkownik" />
             <End Role="odsluch" EntitySet="odsluch" />
           </AssociationSet>
-          <AssociationSet Name="FK__planUzytk__planI__05D8E0BE" Association="Self.FK__planUzytk__planI__05D8E0BE">
-            <End Role="plany" EntitySet="plany" />
-            <End Role="planUzytkownik" EntitySet="planUzytkownik" />
-          </AssociationSet>
           <AssociationSet Name="FK__planUzytk__uzytk__04E4BC85" Association="Self.FK__planUzytk__uzytk__04E4BC85">
             <End Role="uzytkownik" EntitySet="uzytkownik" />
+            <End Role="planUzytkownik" EntitySet="planUzytkownik" />
+          </AssociationSet>
+          <AssociationSet Name="fk_plan_uzytkownik" Association="Self.fk_plan_uzytkownik">
+            <End Role="plany" EntitySet="plany" />
             <End Role="planUzytkownik" EntitySet="planUzytkownik" />
           </AssociationSet>
           <AssociationSet Name="FK__przynalez__utwor__1CBC4616" Association="Self.FK__przynalez__utwor__1CBC4616">
@@ -643,10 +650,10 @@
             <Parameter Name="pseudonim" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="dodaj_artyste">
-          <Parameter Name="pseudonim" Mode="In" Type="String" />
+            <Parameter Name="pseudonim" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="dodaj_gatunek">
-          <Parameter Name="nazwa" Mode="In" Type="String" />
+            <Parameter Name="nazwa" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="dodaj_odsluch">
             <Parameter Name="uztkownikId" Mode="In" Type="String" />
@@ -685,23 +692,27 @@
             <Parameter Name="idPlan" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="liczba_albumow_artysty">
-          <Parameter Name="pseudonim" Mode="In" Type="String" />
+            <Parameter Name="pseudonim" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="liczba_dni_odtwarzania_utworu">
-          <Parameter Name="utworId" Mode="In" Type="Int32" />
+            <Parameter Name="utworId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="liczba_odsluchan">
+            <Parameter Name="id" Mode="In" Type="String" />
+            <Parameter Name="days" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="liczba_utworow_album">
             <Parameter Name="nazwa" Mode="In" Type="String" />
             <Parameter Name="pseudonim" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="liczba_utworow_artysty">
-          <Parameter Name="pseudonim" Mode="In" Type="String" />
+            <Parameter Name="pseudonim" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="liczba_utworow_danego_gatunku">
-          <Parameter Name="nazwa" Mode="In" Type="String" />
+            <Parameter Name="nazwa" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="liczba_utworow_odtowrzonych_przez_uzytkownika">
-          <Parameter Name="imie" Mode="In" Type="String" />
+            <Parameter Name="imie" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="liczba_uzytkownikow_ktorzy_odtworzyli_utwor">
             <Parameter Name="nazwa" Mode="In" Type="String" />
@@ -709,13 +720,13 @@
           </FunctionImport>
           <FunctionImport Name="najpopularniejsze_w_kraju" ReturnType="Collection(SerwisMuzycznyModel.najpopularniejsze_w_kraju_Result)" />
           <FunctionImport Name="napopularniejsi_artysci" ReturnType="Collection(SerwisMuzycznyModel.napopularniejsi_artysci_Result)">
-          <Parameter Name="liczbaDni" Mode="In" Type="Int32" />
+            <Parameter Name="liczbaDni" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="srednia_odtworzen" />
-          <FunctionImport Name="wiecej_niz_srednia" ReturnType="Collection(SerwisMuzycznyModel.wiecej_niz_srednia_Result)" />
           <FunctionImport Name="utwory_z_albumu" ReturnType="Collection(SerwisMuzycznyModel.utwory_z_albumu_Result)">
             <Parameter Name="idAlbumu" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="wiecej_niz_srednia" ReturnType="Collection(SerwisMuzycznyModel.wiecej_niz_srednia_Result)" />
         </EntityContainer>
         <ComplexType Name="najpopularniejsze_w_kraju_Result">
           <Property Type="Int32" Name="WskaznikPopularnosci" Nullable="true" />
@@ -726,14 +737,14 @@
           <Property Type="Int32" Name="liczbaOdtworzen" Nullable="true" />
           <Property Type="String" Name="pseudonim" Nullable="false" MaxLength="40" />
         </ComplexType>
+        <ComplexType Name="utwory_z_albumu_Result">
+          <Property Type="String" Name="Nazwa" Nullable="false" MaxLength="60" />
+          <Property Type="String" Name="Długość" Nullable="false" MaxLength="8" />
+        </ComplexType>
         <ComplexType Name="wiecej_niz_srednia_Result">
           <Property Type="Int32" Name="utworId" Nullable="false" />
           <Property Type="String" Name="nazwa" Nullable="false" MaxLength="60" />
           <Property Type="String" Name="dlugosc" Nullable="false" MaxLength="8" />
-        </ComplexType>
-        <ComplexType Name="utwory_z_albumu_Result">
-          <Property Type="String" Name="Nazwa" Nullable="false" MaxLength="60" />
-          <Property Type="String" Name="Długość" Nullable="false" MaxLength="8" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -785,6 +796,7 @@
                 <ScalarProperty Name="uzytkownikId" ColumnName="uzytkownikId" />
                 <ScalarProperty Name="planId" ColumnName="planId" />
                 <ScalarProperty Name="dataKupnaPakietu" ColumnName="dataKupnaPakietu" />
+                <ScalarProperty Name="rabat" ColumnName="rabat" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -853,6 +865,7 @@
           <FunctionImportMapping FunctionImportName="dodajPlanUzytkownik" FunctionName="SerwisMuzycznyModel.Store.dodajPlanUzytkownik" />
           <FunctionImportMapping FunctionImportName="liczba_albumow_artysty" FunctionName="SerwisMuzycznyModel.Store.liczba_albumow_artysty" />
           <FunctionImportMapping FunctionImportName="liczba_dni_odtwarzania_utworu" FunctionName="SerwisMuzycznyModel.Store.liczba_dni_odtwarzania_utworu" />
+          <FunctionImportMapping FunctionImportName="liczba_odsluchan" FunctionName="SerwisMuzycznyModel.Store.liczba_odsluchan" />
           <FunctionImportMapping FunctionImportName="liczba_utworow_album" FunctionName="SerwisMuzycznyModel.Store.liczba_utworow_album" />
           <FunctionImportMapping FunctionImportName="liczba_utworow_artysty" FunctionName="SerwisMuzycznyModel.Store.liczba_utworow_artysty" />
           <FunctionImportMapping FunctionImportName="liczba_utworow_danego_gatunku" FunctionName="SerwisMuzycznyModel.Store.liczba_utworow_danego_gatunku" />
@@ -876,20 +889,20 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="srednia_odtworzen" FunctionName="SerwisMuzycznyModel.Store.srednia_odtworzen" />
+          <FunctionImportMapping FunctionImportName="utwory_z_albumu" FunctionName="SerwisMuzycznyModel.Store.utwory_z_albumu">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SerwisMuzycznyModel.utwory_z_albumu_Result">
+                <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
+                <ScalarProperty Name="Długość" ColumnName="Długość" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="wiecej_niz_srednia" FunctionName="SerwisMuzycznyModel.Store.wiecej_niz_srednia">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SerwisMuzycznyModel.wiecej_niz_srednia_Result">
                 <ScalarProperty Name="utworId" ColumnName="utworId" />
                 <ScalarProperty Name="nazwa" ColumnName="nazwa" />
                 <ScalarProperty Name="dlugosc" ColumnName="dlugosc" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="utwory_z_albumu" FunctionName="SerwisMuzycznyModel.Store.utwory_z_albumu">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SerwisMuzycznyModel.utwory_z_albumu_Result">
-                <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
-                <ScalarProperty Name="Długość" ColumnName="Długość" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

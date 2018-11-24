@@ -12,9 +12,7 @@ namespace Serwis_Muzyczny.Controllers
 {
     public class songsController : Controller
     {
-        private SerwisMuzycznyEntities db = new SerwisMuzycznyEntities();
-
-        // GET: songs
+        private SerwisMuzycznyEntities db = new SerwisMuzycznyEntities();        // GET: songs
         public ActionResult Index()
         {
             return View(db.utwor.ToList());
