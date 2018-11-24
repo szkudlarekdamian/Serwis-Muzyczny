@@ -13,7 +13,6 @@ namespace Serwis_Muzyczny.Controllers
     public class plansController : Controller
     {
         private SerwisMuzycznyEntities db = new SerwisMuzycznyEntities();
-
         // GET: plans
         public ActionResult Index()
         {

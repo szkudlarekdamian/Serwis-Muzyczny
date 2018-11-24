@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Serwis_Muzyczny.Models.planUzytkownik>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Plany użytkowników";
 }
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Utwórz nowy", "Create")
 </p>
 <table class="table">
     <tr>
@@ -18,7 +18,19 @@
             @Html.DisplayNameFor(model => model.plany.nazwa)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.plany.cena)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.rabat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.uzytkownik.uzytkownikId)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.uzytkownik.imie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.uzytkownik.nazwisko)
         </th>
         <th></th>
     </tr>
@@ -32,12 +44,24 @@
             @Html.DisplayFor(modelItem => item.plany.nazwa)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.plany.cena)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.rabat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.uzytkownik.uzytkownikId)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.uzytkownik.imie)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.planUzytkownikid }) |
-            @Html.ActionLink("Details", "Details", new { id=item.planUzytkownikid }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.planUzytkownikid })
+            @Html.DisplayFor(modelItem => item.uzytkownik.nazwisko)
+        </td>
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { id = item.planUzytkownikid }) |
+            @Html.ActionLink("Szczegóły", "Details", new { id = item.planUzytkownikid }) |
+            @Html.ActionLink("Usuń", "Delete", new { id = item.planUzytkownikid })
         </td>
     </tr>
 }

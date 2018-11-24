@@ -12,9 +12,7 @@ namespace Serwis_Muzyczny.Controllers
 {
     public class performancesController : Controller
     {
-        private SerwisMuzycznyEntities db = new SerwisMuzycznyEntities();
-
-        // GET: performances
+        private SerwisMuzycznyEntities db = new SerwisMuzycznyEntities();        // GET: performances
         public ActionResult Index()
         {
             var wykonanie = db.wykonanie.Include(w => w.artysta).Include(w => w.utwor);

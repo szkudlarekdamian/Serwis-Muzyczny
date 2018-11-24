@@ -12,9 +12,7 @@ namespace Serwis_Muzyczny.Controllers
 {
     public class listensController : Controller
     {
-        private SerwisMuzycznyEntities db = new SerwisMuzycznyEntities();
-
-        // GET: listens
+        private SerwisMuzycznyEntities db = new SerwisMuzycznyEntities();        // GET: listens
         public ActionResult Index()
         {
             var odsluch = db.odsluch.Include(o => o.utwor).Include(o => o.uzytkownik);

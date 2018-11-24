@@ -12,9 +12,7 @@ namespace Serwis_Muzyczny.Controllers
 {
     public class usersController : Controller
     {
-        private SerwisMuzycznyEntities db = new SerwisMuzycznyEntities();
-
-        // GET: users
+        private SerwisMuzycznyEntities db = new SerwisMuzycznyEntities();        // GET: users
         public ActionResult Index()
         {
             return View(db.uzytkownik.ToList());

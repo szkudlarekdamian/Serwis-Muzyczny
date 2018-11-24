@@ -12,9 +12,7 @@ namespace Serwis_Muzyczny.Controllers
 {
     public class plansAndUsersController : Controller
     {
-        private SerwisMuzycznyEntities db = new SerwisMuzycznyEntities();
-
-        // GET: plansAndUsers
+        private SerwisMuzycznyEntities db = new SerwisMuzycznyEntities();        // GET: plansAndUsers
         public ActionResult Index()
         {
             var planUzytkownik = db.planUzytkownik.Include(p => p.plany).Include(p => p.uzytkownik);
@@ -49,7 +47,7 @@ namespace Serwis_Muzyczny.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "planUzytkownikid,uzytkownikId,planId,dataKupnaPakietu")] planUzytkownik planUzytkownik)
+        public ActionResult Create([Bind(Include = "planUzytkownikid,uzytkownikId,planId")] planUzytkownik planUzytkownik)
         {
             if (ModelState.IsValid)
             {

@@ -218,6 +218,19 @@ namespace Serwis_Muzyczny.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("liczba_dni_odtwarzania_utworu", utworIdParameter);
         }
     
+        public virtual int liczba_odsluchan(string id, Nullable<int> days)
+        {
+            var idParameter = id != null ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(string));
+    
+            var daysParameter = days.HasValue ?
+                new ObjectParameter("days", days) :
+                new ObjectParameter("days", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("liczba_odsluchan", idParameter, daysParameter);
+        }
+    
         public virtual int liczba_utworow_album(string nazwa, string pseudonim)
         {
             var nazwaParameter = nazwa != null ?
@@ -290,11 +303,6 @@ namespace Serwis_Muzyczny.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("srednia_odtworzen");
         }
     
-        public virtual ObjectResult<wiecej_niz_srednia_Result> wiecej_niz_srednia()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<wiecej_niz_srednia_Result>("wiecej_niz_srednia");
-        }
-    
         public virtual ObjectResult<utwory_z_albumu_Result> utwory_z_albumu(Nullable<int> idAlbumu)
         {
             var idAlbumuParameter = idAlbumu.HasValue ?
@@ -302,6 +310,11 @@ namespace Serwis_Muzyczny.Models
                 new ObjectParameter("idAlbumu", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<utwory_z_albumu_Result>("utwory_z_albumu", idAlbumuParameter);
+        }
+    
+        public virtual ObjectResult<wiecej_niz_srednia_Result> wiecej_niz_srednia()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<wiecej_niz_srednia_Result>("wiecej_niz_srednia");
         }
     }
 }
