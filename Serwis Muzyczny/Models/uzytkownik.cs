@@ -30,7 +30,6 @@ namespace Serwis_Muzyczny.Models
         public string miejscowosc { get; set; }
         public string rodzajMiejscowosci { get; set; }
         public string plec { get; set; }
-
         public int PozostalaIlosc { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

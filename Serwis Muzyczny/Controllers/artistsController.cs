@@ -50,7 +50,18 @@ namespace Serwis_Muzyczny.Controllers
             if (ModelState.IsValid)
             {
                 db.artysta.Add(artysta);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }catch(Exception e)
+                {
+                    if (e.InnerException == null)
+                        ViewBag.Exception = "Nieoczekiwany błąd.";
+                    else
+                        ViewBag.Exception = e.InnerException.InnerException.Message;
+
+                    return View(artysta);
+                }
                 return RedirectToAction("Index");
             }
 

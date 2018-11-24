@@ -50,7 +50,19 @@ namespace Serwis_Muzyczny.Controllers
             if (ModelState.IsValid)
             {
                 db.plany.Add(plany);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }catch(Exception e)
+                {
+                    if (e.InnerException == null)
+                        ViewBag.Exception = "Nieoczekiwany błąd.";
+                    else
+                        ViewBag.Exception = e.InnerException.InnerException.Message;
+
+                    return View(plany);
+                }
+
                 return RedirectToAction("Index");
             }
 

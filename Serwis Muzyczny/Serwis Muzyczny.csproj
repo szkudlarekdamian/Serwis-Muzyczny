@@ -202,16 +202,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SerwisMuzycznyEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SerwisMuzycznyEntities.cs" />
-    <Compile Include="Models\SerwisMuzycznyEntities.Designer.cs">
-      <DependentUpon>SerwisMuzycznyEntities.edmx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Models\SerwisMuzycznyEntities2.cs">
+    <Compile Include="Models\SerwisMuzycznyEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SerwisMuzycznyEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SerwisMuzycznyEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\utwor.cs">
       <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
@@ -247,7 +246,7 @@
     <Content Include="Models\SerwisMuzycznyEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SerwisMuzycznyEntities.edmx</DependentUpon>
-      <LastGenOutput>SerwisMuzycznyEntities2.cs</LastGenOutput>
+      <LastGenOutput>SerwisMuzycznyEntities.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

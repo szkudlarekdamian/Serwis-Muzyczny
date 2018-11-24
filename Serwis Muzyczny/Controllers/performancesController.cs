@@ -52,7 +52,20 @@ namespace Serwis_Muzyczny.Controllers
             if (ModelState.IsValid)
             {
                 db.wykonanie.Add(wykonanie);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }catch(Exception e)
+                {
+                    if (e.InnerException == null)
+                        ViewBag.Exception = "Nieoczekiwany błąd.";
+                    else
+                        ViewBag.Exception = e.InnerException.InnerException.Message;
+
+                    ViewBag.artystaId = new SelectList(db.artysta, "artystaId", "pseudonim", wykonanie.artystaId);
+                    ViewBag.utworId = new SelectList(db.utwor, "utworId", "nazwa", wykonanie.utworId);
+                    return View(wykonanie);
+                }
                 return RedirectToAction("Index");
             }
 

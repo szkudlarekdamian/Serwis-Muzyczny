@@ -49,7 +49,18 @@ namespace Serwis_Muzyczny.Controllers
             if (ModelState.IsValid)
             {
                 db.gatunek.Add(gatunek);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }catch(Exception e)
+                {
+                    if (e.InnerException == null)
+                        ViewBag.Exception = "Nieoczekiwany błąd.";
+                    else
+                        ViewBag.Exception = e.InnerException.InnerException.Message;
+
+                    return View(gatunek);
+                }
                 return RedirectToAction("Index");
             }
 

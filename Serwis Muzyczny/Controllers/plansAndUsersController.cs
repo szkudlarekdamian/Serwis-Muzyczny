@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -51,6 +52,11 @@ namespace Serwis_Muzyczny.Controllers
         {
             if (ModelState.IsValid)
             {
+                planUzytkownik.dataKupnaPakietu = DateTime.Now;
+                Debug.WriteLine("czas " + planUzytkownik.dataKupnaPakietu);
+                Debug.WriteLine("Plan Id " + planUzytkownik.planId);
+                Debug.WriteLine("uzytkownikID " + planUzytkownik.uzytkownikId);
+                
                 db.planUzytkownik.Add(planUzytkownik);
                 try
                 {
