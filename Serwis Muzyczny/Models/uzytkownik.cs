@@ -11,7 +11,9 @@ namespace Serwis_Muzyczny.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class uzytkownik
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,15 +23,35 @@ namespace Serwis_Muzyczny.Models
             this.planUzytkownik = new HashSet<planUzytkownik>();
         }
     
+        [DisplayName("Id u¿ytkownika")]
         public string uzytkownikId { get; set; }
+
+        [DisplayName("Imie")]
         public string imie { get; set; }
+
+        [DisplayName("Nazwisko")]
         public string nazwisko { get; set; }
+
+        [DisplayName("Email")]
         public string email { get; set; }
+
+        [DisplayName("Kraj")]
         public string kraj { get; set; }
+
+        [DisplayName("Data urodzin")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public System.DateTime dataUrodzenia { get; set; }
+
+        [DisplayName("Miejscowoœæ")]
         public string miejscowosc { get; set; }
+
+        [DisplayName("Rodzaj miejscowoœci")]
         public string rodzajMiejscowosci { get; set; }
+
+        [DisplayName("P³eæ")]
         public string plec { get; set; }
+
+        [DisplayName("Pozosta³a iloœæ")]
         public int PozostalaIlosc { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

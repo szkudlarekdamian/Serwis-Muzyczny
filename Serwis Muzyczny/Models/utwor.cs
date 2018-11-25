@@ -11,7 +11,8 @@ namespace Serwis_Muzyczny.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class utwor
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,8 +23,11 @@ namespace Serwis_Muzyczny.Models
             this.wykonanie = new HashSet<wykonanie>();
         }
     
+        [DisplayName("Id utworu")]
         public int utworId { get; set; }
+        [DisplayName("Nazwa")]
         public string nazwa { get; set; }
+        [DisplayName("D³ugoœæ")]
         public string dlugosc { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

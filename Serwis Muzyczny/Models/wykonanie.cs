@@ -11,11 +11,17 @@ namespace Serwis_Muzyczny.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class wykonanie
     {
+        [DisplayName("Id wykonania")]
         public int wykonanieId { get; set; }
+
+        [DisplayName("Id artysty")]
         public int artystaId { get; set; }
+
+        [DisplayName("Id utworu")]
         public int utworId { get; set; }
     
         public virtual artysta artysta { get; set; }

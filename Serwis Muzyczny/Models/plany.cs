@@ -11,7 +11,8 @@ namespace Serwis_Muzyczny.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class plany
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,9 +21,14 @@ namespace Serwis_Muzyczny.Models
             this.planUzytkownik = new HashSet<planUzytkownik>();
         }
     
+        [DisplayName("Id planu")]
         public int planId { get; set; }
+
+        [DisplayName("Liczba piosenek")]
         public int iloscPiosenek { get; set; }
+        [DisplayName("Cena")]
         public decimal cena { get; set; }
+        [DisplayName("Nazwa")]
         public string nazwa { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

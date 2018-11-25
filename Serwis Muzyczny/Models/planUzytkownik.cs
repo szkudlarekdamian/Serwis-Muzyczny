@@ -11,13 +11,23 @@ namespace Serwis_Muzyczny.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class planUzytkownik
     {
+        [DisplayName("Id")]
         public int planUzytkownikid { get; set; }
+        [DisplayName("Id uzytkownika")]
         public string uzytkownikId { get; set; }
+        [DisplayName("Id planu")]
         public int planId { get; set; }
+
+        [DisplayName("Data kupna pakietu")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public System.DateTime dataKupnaPakietu { get; set; }
+
+        [DisplayName("Rabat")]
         public Nullable<byte> rabat { get; set; }
     
         public virtual uzytkownik uzytkownik { get; set; }

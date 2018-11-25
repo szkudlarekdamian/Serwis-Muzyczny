@@ -10,11 +10,16 @@
 namespace Serwis_Muzyczny.Models
 {
     using System;
-    
+    using System.ComponentModel;
+
     public partial class najpopularniejsze_w_kraju_Result
     {
         public Nullable<int> WskaznikPopularnosci { get; set; }
+
+        [DisplayName("Nazwa")]
         public string nazwa { get; set; }
+
+        [DisplayName("Kraj")]
         public string kraj { get; set; }
     }
 }
