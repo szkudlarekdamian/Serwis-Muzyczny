@@ -1,0 +1,82 @@
+USE [SerwisMuzyczny]
+GO
+/****** Object:  Trigger [dbo].[ustawPozostalilosc]    Script Date: 25.11.2018 13:39:20 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER trigger [dbo].[ustawPozostalilosc] on [dbo].[planUzytkownik] after insert, update as
+update uzytkownik set PozostalaIlosc = (select iloscPiosenek from plany where planId = (select planId from inserted))
+where 
+uzytkownikId = (select uzytkownikId from inserted)
+go
+
+USE [SerwisMuzyczny]
+GO
+/****** Object:  Trigger [dbo].[niewykorzystanyPlan]    Script Date: 25.11.2018 14:29:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER trigger [dbo].[niewykorzystanyPlan] on [dbo].[planUzytkownik]
+after update as 
+DECLARE @pozostalych int;
+SELECT @pozostalych = u.PozostalaIlosc FROM uzytkownik u JOIN inserted i ON i.uzytkownikId=u.uzytkownikId
+
+if (@pozostalych > 0)
+BEGIN
+	ROLLBACK
+	RAISERROR('Poprzedni plan nie został wykorzystany do końca!',16,1);
+END
+go
+Create PROCEDURE usun_uzytkownika @nazwa varchar(30)
+AS
+delete from planUzytkownik where uzytkownikId = @nazwa
+delete from odsluch where uzytkownikId = @nazwa
+delete from uzytkownik where uzytkownikId = @nazwa
+
+go
+
+CREATE PROCEDURE usun_artyste @nazwa int
+AS
+declare @tmp TABLE(
+	utworID int
+)
+insert into @tmp(utworID)
+	select utworID from wykonanie
+	where artystaID = @nazwa;
+
+delete from wykonanie where artystaID = @nazwa
+delete from przynaleznosc where albumId in (select albumId from album where artystaId = @nazwa)
+delete from odsluch where utworID in (select utworID from @tmp)
+delete from wykonanie where artystaId = @nazwa
+delete from utwor where utworID in (select utworID from @tmp)
+delete from album where artystaID = @nazwa
+delete from artysta where artystaID = @nazwa
+
+go
+
+create PROCEDURE usun_utwor @nazwa int
+AS
+delete from wykonanie where utworID = @nazwa
+delete from przynaleznosc where utworID = @nazwa
+delete from odsluch where utworID = @nazwa
+delete from utwor where utworID = @nazwa
+go
+
+CREATE PROCEDURE usun_album @nazwa int
+AS
+declare @tmp TABLE(
+	utworID int
+)
+insert into @tmp(utworID)
+	select utworID from przynaleznosc
+	where albumId = @nazwa;
+
+delete from wykonanie where utworID in (select utworID from @tmp)
+delete from przynaleznosc where albumId = @nazwa
+delete from odsluch where utworID in (select utworID from @tmp)
+delete from utwor where utworID in (select utworID from @tmp)
+delete from album where albumId = @nazwa
+
