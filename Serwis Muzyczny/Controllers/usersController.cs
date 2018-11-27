@@ -114,8 +114,7 @@ namespace Serwis_Muzyczny.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            uzytkownik uzytkownik = db.uzytkownik.Find(id);
-            db.uzytkownik.Remove(uzytkownik);
+            db.usun_uzytkownika(id);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

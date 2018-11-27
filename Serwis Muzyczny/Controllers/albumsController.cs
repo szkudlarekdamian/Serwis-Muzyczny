@@ -189,8 +189,7 @@ namespace Serwis_Muzyczny.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            album album = db.album.Find(id);
-            db.album.Remove(album);
+            db.usun_album(id);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
