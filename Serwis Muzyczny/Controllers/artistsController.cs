@@ -119,8 +119,7 @@ namespace Serwis_Muzyczny.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            artysta artysta = db.artysta.Find(id);
-            db.artysta.Remove(artysta);
+            db.usun_artyste(id);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

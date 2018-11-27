@@ -107,8 +107,7 @@ namespace Serwis_Muzyczny.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            utwor utwor = db.utwor.Find(id);
-            db.utwor.Remove(utwor);
+            db.usun_utwor(id);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
