@@ -68,7 +68,7 @@ namespace Serwis_Muzyczny.Controllers
                 {
                     db.SaveChanges();
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     if (e.InnerException == null)
                         ViewBag.Exception = "Niepoprawne dane albumu!";
@@ -95,7 +95,7 @@ namespace Serwis_Muzyczny.Controllers
             return View();
         }
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateByProcedure([Bind(Include = "albumId,nazwa,dataWydania,gatunekId,artystaId")] album album)
@@ -189,8 +189,7 @@ namespace Serwis_Muzyczny.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            album album = db.album.Find(id);
-            db.album.Remove(album);
+            db.usun_album(id);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

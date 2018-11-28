@@ -1,0 +1,159 @@
+﻿@model IEnumerable<Serwis_Muzyczny.Models.planyIUzytkownik_Result>
+
+@{
+    ViewBag.Title = "Plany użytkowników";
+}
+<div>
+    <h2>Użytkownik</h2>
+    @foreach (var item in Model)
+    {
+    <dl class="dl-horizontal" style="padding:10px 10px 10px 0px;width:35%;border-radius:10px;background-image:linear-gradient(-50deg, hotpink, black);color:floralwhite; border-color:darkslategray;">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nickname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => item.Nickname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Imie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => item.Imie)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nazwisko)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => item.Nazwisko)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => item.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Kraj)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => item.Kraj)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataUrodzenia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => item.DataUrodzenia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Miejscowosc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => item.Miejscowosc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Typ)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => item.Typ)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Plec)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => item.Plec)
+        </dd>
+
+        <dt>
+            Pozostala ilosc
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => item.PozostaloDoOdsluchania)
+        </dd>
+
+    </dl>
+        break;
+    }
+</div>
+<h2>Historia kupionych abonamentów</h2>  
+
+<table class="table" style="background-image:linear-gradient(-90deg, violet, white);  border-color:darkslategray;" >
+    <tr style="align-content:center">
+         <th style="align-content:center">
+            @Html.DisplayNameFor(model => model.IDZakupu)
+        </th>
+         <th style="align-content:center">
+            @Html.DisplayNameFor(model => model.DataZakupu)
+        </th>
+         <th style="align-content:center">
+            @Html.DisplayNameFor(model => model.IDPlanu)
+        </th>
+         <th style="align-content:center">
+            @Html.DisplayNameFor(model => model.NazwaPlanu)
+        </th>
+         <th style="align-content:center">
+            @Html.DisplayNameFor(model => model.Cena)
+        </th>
+         <th style="align-content:center">
+            @Html.DisplayNameFor(model => model.Rabat)
+        </th>
+         <th style="align-content:center">
+            @Html.DisplayNameFor(model => model.WartoscRabatu)
+        </th>       
+         <th style="align-content:center">
+            @Html.DisplayNameFor(model => model.Wartosc)
+        </th>
+
+         <th style="align-content:center"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td style="align-content:center">
+            @Html.DisplayFor(modelItem => item.IDZakupu)
+        </td>
+         <td style="align-content:center">
+            @Html.DisplayFor(modelItem => item.DataZakupu)
+        </td>
+         <td style="align-content:center">
+            @Html.DisplayFor(modelItem => item.IDPlanu)
+        </td>
+         <td style="align-content:center">
+            @Html.DisplayFor(modelItem => item.NazwaPlanu)
+        </td>
+         <td style="align-content:center">
+            @Html.DisplayFor(modelItem => item.Cena)
+        </td>
+         <td style="align-content:center">
+            @Html.DisplayFor(modelItem => item.Rabat)
+        </td>
+         <td style="align-content:center">
+            @Html.DisplayFor(modelItem => item.WartoscRabatu)
+        </td>
+         <td style="align-content:center">
+            @Html.DisplayFor(modelItem => item.Wartosc)
+        </td>
+         <td style="align-content:center">
+            @Html.ActionLink("Usuń", "DeleteConfirmedView", "plansAndUsers", new { id = item.IDZakupu.ToString() }, null)
+        </td>
+    </tr>
+    }
+
+</table>

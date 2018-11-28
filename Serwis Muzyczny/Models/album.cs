@@ -11,9 +11,7 @@ namespace Serwis_Muzyczny.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class album
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,27 +19,14 @@ namespace Serwis_Muzyczny.Models
         {
             this.przynaleznosc = new HashSet<przynaleznosc>();
         }
-        
-        [DisplayName("Id albumu")]
+    
         public int albumId { get; set; }
-
-        [DisplayName("Tytu³")]
         public string nazwa { get; set; }
-
-        [DisplayName("Data wydania")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public System.DateTime dataWydania { get; set; }
-
-        [DisplayName("Id gatunku")]
         public int gatunekId { get; set; }
-
-        [DisplayName("Id artysty")]
         public int artystaId { get; set; }
     
-        [DisplayName("Artysta")]
         public virtual artysta artysta { get; set; }
-
-        [DisplayName("Gatunek")]
         public virtual gatunek gatunek { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<przynaleznosc> przynaleznosc { get; set; }

@@ -11,19 +11,12 @@ namespace Serwis_Muzyczny.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class odsluch
     {
-        [DisplayName("Id ods³uchu")]
         public int odsluchId { get; set; }
-        [DisplayName("Id u¿ytkownika")]
         public string uzytkownikId { get; set; }
-        [DisplayName("Id utworu")]
         public int utworId { get; set; }
-        [DisplayName("Data odtworzenia")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public System.DateTime dataOdtworzenia { get; set; }
     
         public virtual utwor utwor { get; set; }

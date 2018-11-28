@@ -11,8 +11,7 @@ namespace Serwis_Muzyczny.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
+    
     public partial class gatunek
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,11 +19,8 @@ namespace Serwis_Muzyczny.Models
         {
             this.album = new HashSet<album>();
         }
-
-        [DisplayName("Id gatunku")]
+    
         public int gatunekId { get; set; }
-
-        [DisplayName("Nazwa gatunku")]
         public string nazwa { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

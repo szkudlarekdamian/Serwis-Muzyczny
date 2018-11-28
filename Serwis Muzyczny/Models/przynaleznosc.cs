@@ -11,15 +11,11 @@ namespace Serwis_Muzyczny.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
+    
     public partial class przynaleznosc
     {
-        [DisplayName("Id")]
         public int przynaleznoscId { get; set; }
-        [DisplayName("Id albumu")]
         public int albumId { get; set; }
-        [DisplayName("Id utworu")]
         public int utworId { get; set; }
     
         public virtual album album { get; set; }

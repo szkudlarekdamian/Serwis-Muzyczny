@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Serwis_Muzyczny.Models.uzytkownik>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Użytkownicy";
 }
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Dodaj nowego", "Create")
 </p>
 <table class="table">
     <tr>
@@ -30,7 +30,8 @@
             @Html.DisplayNameFor(model => model.miejscowosc)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.rodzajMiejscowosci)
+            @*@Html.DisplayNameFor(model => model.rodzajMiejscowosci)*@
+            Rodzaj
         </th>
         <th>
             @Html.DisplayNameFor(model => model.plec)
@@ -71,9 +72,10 @@
             @Html.DisplayFor(modelItem => item.PozostalaIlosc)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.uzytkownikId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.uzytkownikId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.uzytkownikId })
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.uzytkownikId }) |
+            @Html.ActionLink("Szczegóły", "Details", new { id=item.uzytkownikId }) |
+            @Html.ActionLink("Usuń", "Delete", new { id=item.uzytkownikId }) |
+            @Html.ActionLink("Zakupy", "PlansHistory", new { id=item.uzytkownikId })
         </td>
     </tr>
 }

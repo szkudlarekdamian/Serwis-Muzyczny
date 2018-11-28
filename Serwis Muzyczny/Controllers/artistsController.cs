@@ -53,7 +53,8 @@ namespace Serwis_Muzyczny.Controllers
                 try
                 {
                     db.SaveChanges();
-                }catch(Exception e)
+                }
+                catch (Exception e)
                 {
                     if (e.InnerException == null)
                         ViewBag.Exception = "Nieoczekiwany błąd.";
@@ -119,8 +120,7 @@ namespace Serwis_Muzyczny.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            artysta artysta = db.artysta.Find(id);
-            db.artysta.Remove(artysta);
+            db.usun_artyste(id);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -298,9 +298,54 @@ namespace Serwis_Muzyczny.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<napopularniejsi_artysci_Result>("napopularniejsi_artysci", liczbaDniParameter);
         }
     
+        public virtual ObjectResult<planyIUzytkownik_Result> planyIUzytkownik(string idUzytkownika)
+        {
+            var idUzytkownikaParameter = idUzytkownika != null ?
+                new ObjectParameter("idUzytkownika", idUzytkownika) :
+                new ObjectParameter("idUzytkownika", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<planyIUzytkownik_Result>("planyIUzytkownik", idUzytkownikaParameter);
+        }
+    
         public virtual int srednia_odtworzen()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("srednia_odtworzen");
+        }
+    
+        public virtual int usun_album(Nullable<int> nazwa)
+        {
+            var nazwaParameter = nazwa.HasValue ?
+                new ObjectParameter("nazwa", nazwa) :
+                new ObjectParameter("nazwa", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usun_album", nazwaParameter);
+        }
+    
+        public virtual int usun_artyste(Nullable<int> nazwa)
+        {
+            var nazwaParameter = nazwa.HasValue ?
+                new ObjectParameter("nazwa", nazwa) :
+                new ObjectParameter("nazwa", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usun_artyste", nazwaParameter);
+        }
+    
+        public virtual int usun_utwor(Nullable<int> nazwa)
+        {
+            var nazwaParameter = nazwa.HasValue ?
+                new ObjectParameter("nazwa", nazwa) :
+                new ObjectParameter("nazwa", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usun_utwor", nazwaParameter);
+        }
+    
+        public virtual int usun_uzytkownika(string nazwa)
+        {
+            var nazwaParameter = nazwa != null ?
+                new ObjectParameter("nazwa", nazwa) :
+                new ObjectParameter("nazwa", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usun_uzytkownika", nazwaParameter);
         }
     
         public virtual ObjectResult<utwory_z_albumu_Result> utwory_z_albumu(Nullable<int> idAlbumu)

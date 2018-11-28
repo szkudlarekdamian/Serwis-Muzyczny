@@ -39,7 +39,7 @@ namespace Serwis_Muzyczny.Controllers
         public ActionResult Create()
         {
             ViewBag.planId = new SelectList(db.plany, "planId", "nazwa");
-            ViewBag.uzytkownikId = new SelectList(db.uzytkownik, "uzytkownikId", "imie");
+            ViewBag.uzytkownikId = new SelectList(db.uzytkownik, "uzytkownikId", "uzytkownikId");
             return View();
         }
 
@@ -70,14 +70,14 @@ namespace Serwis_Muzyczny.Controllers
                         ViewBag.Exception = e.InnerException.InnerException.Message;
 
                     ViewBag.planId = new SelectList(db.plany, "planId", "nazwa", planUzytkownik.planId);
-                    ViewBag.uzytkownikId = new SelectList(db.uzytkownik, "uzytkownikId", "imie", planUzytkownik.uzytkownikId);
+                    ViewBag.uzytkownikId = new SelectList(db.uzytkownik, "uzytkownikId", "uzytkownikId", planUzytkownik.uzytkownikId);
                     return View(planUzytkownik);
                 }
                 return RedirectToAction("Index");
             }
 
             ViewBag.planId = new SelectList(db.plany, "planId", "nazwa", planUzytkownik.planId);
-            ViewBag.uzytkownikId = new SelectList(db.uzytkownik, "uzytkownikId", "imie", planUzytkownik.uzytkownikId);
+            ViewBag.uzytkownikId = new SelectList(db.uzytkownik, "uzytkownikId", "uzytkownikId", planUzytkownik.uzytkownikId);
             return View(planUzytkownik);
         }
 
@@ -94,7 +94,7 @@ namespace Serwis_Muzyczny.Controllers
                 return HttpNotFound();
             }
             ViewBag.planId = new SelectList(db.plany, "planId", "nazwa", planUzytkownik.planId);
-            ViewBag.uzytkownikId = new SelectList(db.uzytkownik, "uzytkownikId", "imie", planUzytkownik.uzytkownikId);
+            ViewBag.uzytkownikId = new SelectList(db.uzytkownik, "uzytkownikId", "uzytkownikId", planUzytkownik.uzytkownikId);
             return View(planUzytkownik);
         }
 
@@ -103,8 +103,9 @@ namespace Serwis_Muzyczny.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "planUzytkownikid,uzytkownikId,planId,dataKupnaPakietu")] planUzytkownik planUzytkownik)
+        public ActionResult Edit([Bind(Include = "planUzytkownikid,uzytkownikId,planId,dataKupnaPakietu,rabat")] planUzytkownik planUzytkownik)
         {
+            var x = planUzytkownik.rabat;
             if (ModelState.IsValid)
             {
                 db.Entry(planUzytkownik).State = EntityState.Modified;
@@ -112,7 +113,7 @@ namespace Serwis_Muzyczny.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.planId = new SelectList(db.plany, "planId", "nazwa", planUzytkownik.planId);
-            ViewBag.uzytkownikId = new SelectList(db.uzytkownik, "uzytkownikId", "imie", planUzytkownik.uzytkownikId);
+            ViewBag.uzytkownikId = new SelectList(db.uzytkownik, "uzytkownikId", "uzytkownikId", planUzytkownik.uzytkownikId);
             return View(planUzytkownik);
         }
 
@@ -140,6 +141,15 @@ namespace Serwis_Muzyczny.Controllers
             db.planUzytkownik.Remove(planUzytkownik);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult DeleteConfirmedView(string id)
+        {
+            planUzytkownik planUzytkownik = db.planUzytkownik.Find(int.Parse(id));
+            var z = planUzytkownik.uzytkownikId;
+            db.planUzytkownik.Remove(planUzytkownik);
+            db.SaveChanges();
+            return RedirectToAction("PlansHistory","users", new { id = z });
         }
 
         protected override void Dispose(bool disposing)

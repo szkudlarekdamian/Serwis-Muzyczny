@@ -18,6 +18,12 @@ namespace Serwis_Muzyczny.Controllers
             return View(db.uzytkownik.ToList());
         }
 
+
+        public ActionResult PlansHistory(string id)
+        {
+            return View(db.planyIUzytkownik(id).ToList());
+        }
+
         // GET: users/Details/5
         public ActionResult Details(string id)
         {
@@ -52,7 +58,8 @@ namespace Serwis_Muzyczny.Controllers
                 try
                 {
                     db.SaveChanges();
-                }catch(Exception e)
+                }
+                catch (Exception e)
                 {
                     ViewBag.Exception = e.InnerException.InnerException.Message;
                     return View(uzytkownik);
@@ -114,8 +121,7 @@ namespace Serwis_Muzyczny.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            uzytkownik uzytkownik = db.uzytkownik.Find(id);
-            db.uzytkownik.Remove(uzytkownik);
+            db.usun_uzytkownika(id);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -10,13 +10,10 @@
 namespace Serwis_Muzyczny.Models
 {
     using System;
-    using System.ComponentModel;
-
+    
     public partial class utwory_z_albumu_Result
     {
-        [DisplayName("Nazwa")]
         public string Nazwa { get; set; }
-        [DisplayName("Długość")]
         public string Długość { get; set; }
     }
 }

@@ -10,12 +10,10 @@
 namespace Serwis_Muzyczny.Models
 {
     using System;
-    using System.ComponentModel;
-
+    
     public partial class napopularniejsi_artysci_Result
     {
         public Nullable<int> liczbaOdtworzen { get; set; }
-        [DisplayName("Pseudonim")]
         public string pseudonim { get; set; }
     }
 }

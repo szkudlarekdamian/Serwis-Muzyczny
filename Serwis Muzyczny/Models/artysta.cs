@@ -11,8 +11,7 @@ namespace Serwis_Muzyczny.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
+    
     public partial class artysta
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,11 +20,8 @@ namespace Serwis_Muzyczny.Models
             this.album = new HashSet<album>();
             this.wykonanie = new HashSet<wykonanie>();
         }
-
-        [DisplayName("Id artysty")]
+    
         public int artystaId { get; set; }
-
-        [DisplayName("Pseudonim")]
         public string pseudonim { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
