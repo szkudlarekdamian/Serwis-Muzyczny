@@ -11,8 +11,7 @@ namespace Serwis_Muzyczny.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class uzytkownik
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -27,12 +26,12 @@ namespace Serwis_Muzyczny.Models
         public string nazwisko { get; set; }
         public string email { get; set; }
         public string kraj { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public System.DateTime dataUrodzenia { get; set; }
         public string miejscowosc { get; set; }
         public string rodzajMiejscowosci { get; set; }
         public string plec { get; set; }
         public int PozostalaIlosc { get; set; }
+        public byte[] row_version { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<odsluch> odsluch { get; set; }

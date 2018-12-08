@@ -200,6 +200,51 @@ namespace Serwis_Muzyczny.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dodajPlanUzytkownik", idUzytkowniParameter, idPlanParameter);
         }
     
+        public virtual int edycja_uzytkownik(string uzytkownikId, string imie, string nazwisko, string email, string kraj, Nullable<System.DateTime> dataUrodzenia, string miejscowosc, string rodzajMiejscowosci, string plec, Nullable<int> pozostalaIlosc)
+        {
+            var uzytkownikIdParameter = uzytkownikId != null ?
+                new ObjectParameter("uzytkownikId", uzytkownikId) :
+                new ObjectParameter("uzytkownikId", typeof(string));
+    
+            var imieParameter = imie != null ?
+                new ObjectParameter("imie", imie) :
+                new ObjectParameter("imie", typeof(string));
+    
+            var nazwiskoParameter = nazwisko != null ?
+                new ObjectParameter("nazwisko", nazwisko) :
+                new ObjectParameter("nazwisko", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var krajParameter = kraj != null ?
+                new ObjectParameter("kraj", kraj) :
+                new ObjectParameter("kraj", typeof(string));
+    
+            var dataUrodzeniaParameter = dataUrodzenia.HasValue ?
+                new ObjectParameter("dataUrodzenia", dataUrodzenia) :
+                new ObjectParameter("dataUrodzenia", typeof(System.DateTime));
+    
+            var miejscowoscParameter = miejscowosc != null ?
+                new ObjectParameter("miejscowosc", miejscowosc) :
+                new ObjectParameter("miejscowosc", typeof(string));
+    
+            var rodzajMiejscowosciParameter = rodzajMiejscowosci != null ?
+                new ObjectParameter("rodzajMiejscowosci", rodzajMiejscowosci) :
+                new ObjectParameter("rodzajMiejscowosci", typeof(string));
+    
+            var plecParameter = plec != null ?
+                new ObjectParameter("plec", plec) :
+                new ObjectParameter("plec", typeof(string));
+    
+            var pozostalaIloscParameter = pozostalaIlosc.HasValue ?
+                new ObjectParameter("PozostalaIlosc", pozostalaIlosc) :
+                new ObjectParameter("PozostalaIlosc", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("edycja_uzytkownik", uzytkownikIdParameter, imieParameter, nazwiskoParameter, emailParameter, krajParameter, dataUrodzeniaParameter, miejscowoscParameter, rodzajMiejscowosciParameter, plecParameter, pozostalaIloscParameter);
+        }
+    
         public virtual int liczba_albumow_artysty(string pseudonim)
         {
             var pseudonimParameter = pseudonim != null ?
@@ -360,6 +405,19 @@ namespace Serwis_Muzyczny.Models
         public virtual ObjectResult<wiecej_niz_srednia_Result> wiecej_niz_srednia()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<wiecej_niz_srednia_Result>("wiecej_niz_srednia");
+        }
+    
+        public virtual int dodaj_plan_uzytkownik_transakcja(string uzytkownikId, Nullable<int> planId)
+        {
+            var uzytkownikIdParameter = uzytkownikId != null ?
+                new ObjectParameter("uzytkownikId", uzytkownikId) :
+                new ObjectParameter("uzytkownikId", typeof(string));
+    
+            var planIdParameter = planId.HasValue ?
+                new ObjectParameter("planId", planId) :
+                new ObjectParameter("planId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dodaj_plan_uzytkownik_transakcja", uzytkownikIdParameter, planIdParameter);
         }
     }
 }

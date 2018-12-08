@@ -171,64 +171,64 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\album.cs">
-      <DependentUpon>SerwisMuzycznyModel.tt</DependentUpon>
+      <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\artysta.cs">
-      <DependentUpon>SerwisMuzycznyModel.tt</DependentUpon>
+      <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\gatunek.cs">
-      <DependentUpon>SerwisMuzycznyModel.tt</DependentUpon>
+      <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\najpopularniejsze_w_kraju_Result.cs">
-      <DependentUpon>SerwisMuzycznyModel.tt</DependentUpon>
+      <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\napopularniejsi_artysci_Result.cs">
-      <DependentUpon>SerwisMuzycznyModel.tt</DependentUpon>
+      <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\odsluch.cs">
-      <DependentUpon>SerwisMuzycznyModel.tt</DependentUpon>
+      <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\planUzytkownik.cs">
-      <DependentUpon>SerwisMuzycznyModel.tt</DependentUpon>
+      <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\plany.cs">
-      <DependentUpon>SerwisMuzycznyModel.tt</DependentUpon>
+      <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\planyIUzytkownik_Result.cs">
-      <DependentUpon>SerwisMuzycznyModel.tt</DependentUpon>
+      <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\przynaleznosc.cs">
-      <DependentUpon>SerwisMuzycznyModel.tt</DependentUpon>
+      <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SerwisMuzycznyModel.Context.cs">
+    <Compile Include="Models\SerwisMuzycznyEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SerwisMuzycznyModel.Context.tt</DependentUpon>
+      <DependentUpon>SerwisMuzycznyEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SerwisMuzycznyModel.cs">
+    <Compile Include="Models\SerwisMuzycznyEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SerwisMuzycznyModel.tt</DependentUpon>
+      <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SerwisMuzycznyModel.Designer.cs">
+    <Compile Include="Models\SerwisMuzycznyEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SerwisMuzycznyModel.edmx</DependentUpon>
+      <DependentUpon>SerwisMuzycznyEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\utwor.cs">
-      <DependentUpon>SerwisMuzycznyModel.tt</DependentUpon>
+      <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\utwory_z_albumu_Result.cs">
-      <DependentUpon>SerwisMuzycznyModel.tt</DependentUpon>
+      <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\uzytkownik.cs">
-      <DependentUpon>SerwisMuzycznyModel.tt</DependentUpon>
+      <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\wiecej_niz_srednia_Result.cs">
-      <DependentUpon>SerwisMuzycznyModel.tt</DependentUpon>
+      <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\wykonanie.cs">
-      <DependentUpon>SerwisMuzycznyModel.tt</DependentUpon>
+      <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -241,15 +241,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\SerwisMuzycznyModel.Context.tt">
+    <Content Include="Models\SerwisMuzycznyEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SerwisMuzycznyModel.edmx</DependentUpon>
-      <LastGenOutput>SerwisMuzycznyModel.Context.cs</LastGenOutput>
+      <DependentUpon>SerwisMuzycznyEntities.edmx</DependentUpon>
+      <LastGenOutput>SerwisMuzycznyEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\SerwisMuzycznyModel.tt">
+    <Content Include="Models\SerwisMuzycznyEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SerwisMuzycznyModel.edmx</DependentUpon>
-      <LastGenOutput>SerwisMuzycznyModel.cs</LastGenOutput>
+      <DependentUpon>SerwisMuzycznyEntities.edmx</DependentUpon>
+      <LastGenOutput>SerwisMuzycznyEntities.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -257,12 +257,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="BackupBazy\SerwisMuzyczny.bak" />
-    <EntityDeploy Include="Models\SerwisMuzycznyModel.edmx">
+    <EntityDeploy Include="Models\SerwisMuzycznyEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SerwisMuzycznyModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>SerwisMuzycznyEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\SerwisMuzycznyModel.edmx.diagram">
-      <DependentUpon>SerwisMuzycznyModel.edmx</DependentUpon>
+    <Content Include="Models\SerwisMuzycznyEntities.edmx.diagram">
+      <DependentUpon>SerwisMuzycznyEntities.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

@@ -1,16 +1,21 @@
 ﻿@model Serwis_Muzyczny.Models.uzytkownik
 
+
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edycja użytkownika";
+    if (ViewBag.Exception != null)
+    {
+        <h3 style="color:darkred">@Html.ViewBag.Exception</h3>
+    }
 }
 
-<h2>Edit</h2>
+<h2>Edycja użytkownika</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>uzytkownik</h4>
         <hr />

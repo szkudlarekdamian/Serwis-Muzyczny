@@ -87,6 +87,7 @@
           <Property Name="rodzajMiejscowosci" Type="varchar" MaxLength="6" Nullable="false" />
           <Property Name="plec" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="PozostalaIlosc" Type="int" Nullable="false" />
+          <Property Name="row_version" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <EntityType Name="wykonanie">
           <Key>
@@ -232,6 +233,10 @@
           <Parameter Name="uztkownikId" Type="varchar" Mode="In" />
           <Parameter Name="utworId" Type="int" Mode="In" />
         </Function>
+        <Function Name="dodaj_plan_uzytkownik_transakcja" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="uzytkownikId" Type="varchar" Mode="In" />
+          <Parameter Name="planId" Type="int" Mode="In" />
+        </Function>
         <Function Name="dodaj_przynaleznosc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="albumId" Type="int" Mode="In" />
           <Parameter Name="utworId" Type="int" Mode="In" />
@@ -263,6 +268,18 @@
         <Function Name="dodajPlanUzytkownik" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idUzytkowni" Type="varchar" Mode="In" />
           <Parameter Name="idPlan" Type="int" Mode="In" />
+        </Function>
+        <Function Name="edycja_uzytkownik" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="uzytkownikId" Type="varchar" Mode="In" />
+          <Parameter Name="imie" Type="varchar" Mode="In" />
+          <Parameter Name="nazwisko" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="kraj" Type="varchar" Mode="In" />
+          <Parameter Name="dataUrodzenia" Type="date" Mode="In" />
+          <Parameter Name="miejscowosc" Type="varchar" Mode="In" />
+          <Parameter Name="rodzajMiejscowosci" Type="varchar" Mode="In" />
+          <Parameter Name="plec" Type="varchar" Mode="In" />
+          <Parameter Name="PozostalaIlosc" Type="int" Mode="In" />
         </Function>
         <Function Name="liczba_albumow_artysty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pseudonim" Type="varchar" Mode="In" />
@@ -479,6 +496,7 @@
           <Property Name="rodzajMiejscowosci" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="plec" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PozostalaIlosc" Type="Int32" Nullable="false" />
+          <Property Name="row_version" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="odsluch" Relationship="Self.FK__odsluch__uzytkow__0F624AF8" FromRole="uzytkownik" ToRole="odsluch" />
           <NavigationProperty Name="planUzytkownik" Relationship="Self.FK__planUzytk__uzytk__04E4BC85" FromRole="uzytkownik" ToRole="planUzytkownik" />
         </EntityType>
@@ -711,6 +729,18 @@
             <Parameter Name="idUzytkowni" Mode="In" Type="String" />
             <Parameter Name="idPlan" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="edycja_uzytkownik">
+            <Parameter Name="uzytkownikId" Mode="In" Type="String" />
+            <Parameter Name="imie" Mode="In" Type="String" />
+            <Parameter Name="nazwisko" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="kraj" Mode="In" Type="String" />
+            <Parameter Name="dataUrodzenia" Mode="In" Type="DateTime" />
+            <Parameter Name="miejscowosc" Mode="In" Type="String" />
+            <Parameter Name="rodzajMiejscowosci" Mode="In" Type="String" />
+            <Parameter Name="plec" Mode="In" Type="String" />
+            <Parameter Name="PozostalaIlosc" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="liczba_albumow_artysty">
           <Parameter Name="pseudonim" Mode="In" Type="String" />
           </FunctionImport>
@@ -762,6 +792,10 @@
           <Parameter Name="idAlbumu" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="wiecej_niz_srednia" ReturnType="Collection(SerwisMuzycznyModel.wiecej_niz_srednia_Result)" />
+          <FunctionImport Name="dodaj_plan_uzytkownik_transakcja">
+            <Parameter Name="uzytkownikId" Mode="In" Type="String" />
+            <Parameter Name="planId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="najpopularniejsze_w_kraju_Result">
           <Property Type="Int32" Name="WskaznikPopularnosci" Nullable="true" />
@@ -896,6 +930,7 @@
                 <ScalarProperty Name="rodzajMiejscowosci" ColumnName="rodzajMiejscowosci" />
                 <ScalarProperty Name="plec" ColumnName="plec" />
                 <ScalarProperty Name="PozostalaIlosc" ColumnName="PozostalaIlosc" />
+                <ScalarProperty Name="row_version" ColumnName="row_version" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -918,6 +953,7 @@
           <FunctionImportMapping FunctionImportName="dodaj_wykonanie" FunctionName="SerwisMuzycznyModel.Store.dodaj_wykonanie" />
           <FunctionImportMapping FunctionImportName="dodajPlan" FunctionName="SerwisMuzycznyModel.Store.dodajPlan" />
           <FunctionImportMapping FunctionImportName="dodajPlanUzytkownik" FunctionName="SerwisMuzycznyModel.Store.dodajPlanUzytkownik" />
+          <FunctionImportMapping FunctionImportName="edycja_uzytkownik" FunctionName="SerwisMuzycznyModel.Store.edycja_uzytkownik" />
           <FunctionImportMapping FunctionImportName="liczba_albumow_artysty" FunctionName="SerwisMuzycznyModel.Store.liczba_albumow_artysty" />
           <FunctionImportMapping FunctionImportName="liczba_dni_odtwarzania_utworu" FunctionName="SerwisMuzycznyModel.Store.liczba_dni_odtwarzania_utworu" />
           <FunctionImportMapping FunctionImportName="liczba_odsluchan" FunctionName="SerwisMuzycznyModel.Store.liczba_odsluchan" />
@@ -989,6 +1025,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dodaj_plan_uzytkownik_transakcja" FunctionName="SerwisMuzycznyModel.Store.dodaj_plan_uzytkownik_transakcja" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

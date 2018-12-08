@@ -94,8 +94,25 @@ namespace Serwis_Muzyczny.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(uzytkownik).State = EntityState.Modified;
-                db.SaveChanges();
+                ViewBag.Exception = null; 
+                try
+                {
+                    db.edycja_uzytkownik(uzytkownik.uzytkownikId, uzytkownik.imie, uzytkownik.nazwisko, uzytkownik.email, uzytkownik.kraj,
+                        uzytkownik.dataUrodzenia, uzytkownik.miejscowosc, uzytkownik.rodzajMiejscowosci, uzytkownik.plec,
+                        uzytkownik.PozostalaIlosc);
+                    //db.Entry(uzytkownik).State = EntityState.Modified;
+                    //db.SaveChanges();
+                }
+                catch(Exception e)
+                {
+                    if (e.InnerException == null)
+                        ViewBag.Exception = "Błąd edycji uzytkownika!";
+                    else
+                        ViewBag.Exception = e.InnerException.Message;
+                    //uzytkownik = db.uzytkownik.Where(x => x.uzytkownikId == uzytkownik.uzytkownikId).FirstOrDefault<uzytkownik>();
+                    //uzytkownik u = db.uzytkownik.Find(uzytkownik.uzytkownikId);
+                    return View(uzytkownik);
+                }
                 return RedirectToAction("Index");
             }
             return View(uzytkownik);

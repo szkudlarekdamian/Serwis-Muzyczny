@@ -10,23 +10,16 @@
 namespace Serwis_Muzyczny.Models
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class planyIUzytkownik_Result
     {
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-
         public System.DateTime DataZakupu { get; set; }
         public int IDPlanu { get; set; }
         public string NazwaPlanu { get; set; }
-        [Display(Name ="Cena[z³]")]
         public decimal Cena { get; set; }
         public int IDZakupu { get; set; }
-        [Display(Name = "Rabat[%]")]
         public Nullable<byte> Rabat { get; set; }
         public string Nickname { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-
         public System.DateTime DataUrodzenia { get; set; }
         public string Email { get; set; }
         public string Imie { get; set; }
@@ -36,9 +29,7 @@ namespace Serwis_Muzyczny.Models
         public string Plec { get; set; }
         public string Typ { get; set; }
         public int PozostaloDoOdsluchania { get; set; }
-        [Display(Name = "Wartoœæ[z³]")]
         public Nullable<double> Wartosc { get; set; }
-        [Display(Name = "Wartoœæ rabatu[z³]")]
         public Nullable<double> WartoscRabatu { get; set; }
     }
 }

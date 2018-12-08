@@ -53,14 +53,12 @@ namespace Serwis_Muzyczny.Controllers
             if (ModelState.IsValid)
             {
                 planUzytkownik.dataKupnaPakietu = DateTime.Now;
-                Debug.WriteLine("czas " + planUzytkownik.dataKupnaPakietu);
-                Debug.WriteLine("Plan Id " + planUzytkownik.planId);
-                Debug.WriteLine("uzytkownikID " + planUzytkownik.uzytkownikId);
                 
-                db.planUzytkownik.Add(planUzytkownik);
+                //db.planUzytkownik.Add(planUzytkownik);
                 try
                 {
-                    db.SaveChanges();
+                    db.dodaj_plan_uzytkownik_transakcja(planUzytkownik.uzytkownikId, planUzytkownik.planId);
+                    //db.SaveChanges();
                 }
                 catch(Exception e)
                 {
