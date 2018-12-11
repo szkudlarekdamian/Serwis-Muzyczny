@@ -57,8 +57,16 @@
     <div class="form-group">
         @Html.LabelFor(model => model.dataUrodzenia, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.dataUrodzenia, new { htmlAttributes = new { type = "date", max = @DateTime.Now.ToString("yyyy-MM-dd"), @class = "form-control", style = "padding:0px 10px;" } })
-            @Html.ValidationMessageFor(model => model.dataUrodzenia, "", new { @class = "text-danger" })
+            @{if (Model.dataUrodzenia != null)
+                {
+                    @Html.EditorFor(model => model.dataUrodzenia, new { htmlAttributes = new { @type = "date", @Value = Model.dataUrodzenia.ToString("yyyy-MM-dd"), @max = @DateTime.Now.ToString("yyyy-MM-dd"), @class = "form-control", @style = "padding:0px 10px;" } });
+                }
+                else
+                {
+                    @Html.EditorFor(model => model.dataUrodzenia, new { htmlAttributes = new { @type = "date", @max = @DateTime.Now.ToString("yyyy-MM-dd"), @class = "form-control", @style = "padding:0px 10px;" } });
+                }
+                @Html.ValidationMessageFor(model => model.dataUrodzenia, "", new { @class = "text-danger" });
+            }
         </div>
     </div>
 

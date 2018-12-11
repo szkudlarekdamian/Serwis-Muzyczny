@@ -101,8 +101,6 @@ namespace Serwis_Muzyczny.Controllers
                     db.edycja_uzytkownik(uzytkownik.uzytkownikId, uzytkownik.imie, uzytkownik.nazwisko, uzytkownik.email, uzytkownik.kraj,
                         uzytkownik.dataUrodzenia, uzytkownik.miejscowosc, uzytkownik.rodzajMiejscowosci, uzytkownik.plec,
                         uzytkownik.PozostalaIlosc, uzytkownik.row_version);
-                    //db.Entry(uzytkownik).State = EntityState.Modified;
-                    //db.SaveChanges();
                 }
                 catch(Exception e)
                 {
@@ -110,9 +108,7 @@ namespace Serwis_Muzyczny.Controllers
                         ViewBag.Exception = "Błąd edycji uzytkownika!";
                     else
                         ViewBag.Exception = e.InnerException.Message;
-                    //uzytkownik u = new uzytkownik();
-
-                    //uzytkownik = db.uzytkownik.Where(x => x.uzytkownikId == uzytkownik.uzytkownikId).FirstOrDefault<uzytkownik>();
+                    
                     ModelState.Remove("imie");
                     ModelState.Remove("nazwisko");
                     ModelState.Remove("email");
@@ -124,23 +120,18 @@ namespace Serwis_Muzyczny.Controllers
                     ModelState.Remove("plec");
 
                     ModelState.Remove("PozostalaIlosc");
+                    ModelState.Remove("row_version");
 
-                    uzytkownik.imie = db.uzytkownik.Find(uzytkownik.uzytkownikId).imie;
-                    uzytkownik.nazwisko = db.uzytkownik.Find(uzytkownik.uzytkownikId).nazwisko;
-                    uzytkownik.email = db.uzytkownik.Find(uzytkownik.uzytkownikId).email;
-                    uzytkownik.kraj = db.uzytkownik.Find(uzytkownik.uzytkownikId).kraj;
+                    var uzytkownikZaktualizowany = db.uzytkownik.Find(uzytkownik.uzytkownikId);
 
-                    uzytkownik.dataUrodzenia = db.uzytkownik.Find(uzytkownik.uzytkownikId).dataUrodzenia;
-                    uzytkownik.miejscowosc = db.uzytkownik.Find(uzytkownik.uzytkownikId).miejscowosc;
-                    uzytkownik.rodzajMiejscowosci = db.uzytkownik.Find(uzytkownik.uzytkownikId).rodzajMiejscowosci;
-                    uzytkownik.plec = db.uzytkownik.Find(uzytkownik.uzytkownikId).plec;
-
-                    uzytkownik.PozostalaIlosc = db.uzytkownik.Find(uzytkownik.uzytkownikId).PozostalaIlosc;
-
-
-                    return View(uzytkownik);
+                    if (uzytkownikZaktualizowany != null)
+                    {
+                        return View(uzytkownikZaktualizowany);
+                    }
+                    else
+                        return View(uzytkownik);
                     
-                    //return RedirectToAction("Edit");
+                    
                 }
                 return RedirectToAction("Index");
             }

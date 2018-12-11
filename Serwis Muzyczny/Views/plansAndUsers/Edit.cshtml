@@ -36,7 +36,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.dataKupnaPakietu, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.dataKupnaPakietu, new { htmlAttributes = new { type = "date", max = @DateTime.Now.ToString("yyyy-MM-dd"), @class = "form-control", style = "padding:0px 10px;" } })
+            @Html.EditorFor(model => model.dataKupnaPakietu, new { htmlAttributes = new { @type = "date", @Value = Model.dataKupnaPakietu.ToString("yyyy-MM-dd"), @max = @DateTime.Now.ToString("yyyy-MM-dd"), @class = "form-control", @style = "padding:0px 10px;" } })
             @Html.ValidationMessageFor(model => model.dataKupnaPakietu, "", new { @class = "text-danger" })
         </div>
     </div>

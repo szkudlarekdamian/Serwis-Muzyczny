@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SerwisMuzycznyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SerwisMuzycznyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="album">
           <Key>
             <PropertyRef Name="albumId" />
@@ -395,8 +395,7 @@
             <End Role="planUzytkownik" EntitySet="planUzytkownik" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SerwisMuzycznyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -690,10 +689,10 @@
             <Parameter Name="pseudonim" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="dodaj_artyste">
-            <Parameter Name="pseudonim" Mode="In" Type="String" />
+          <Parameter Name="pseudonim" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="dodaj_gatunek">
-            <Parameter Name="nazwa" Mode="In" Type="String" />
+          <Parameter Name="nazwa" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="dodaj_odsluch">
             <Parameter Name="uztkownikId" Mode="In" Type="String" />
@@ -749,10 +748,10 @@
             <Parameter Name="dataEdycji" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="liczba_albumow_artysty">
-            <Parameter Name="pseudonim" Mode="In" Type="String" />
+          <Parameter Name="pseudonim" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="liczba_dni_odtwarzania_utworu">
-            <Parameter Name="utworId" Mode="In" Type="Int32" />
+          <Parameter Name="utworId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="liczba_odsluchan">
             <Parameter Name="id" Mode="In" Type="String" />
@@ -763,13 +762,13 @@
             <Parameter Name="pseudonim" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="liczba_utworow_artysty">
-            <Parameter Name="pseudonim" Mode="In" Type="String" />
+          <Parameter Name="pseudonim" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="liczba_utworow_danego_gatunku">
-            <Parameter Name="nazwa" Mode="In" Type="String" />
+          <Parameter Name="nazwa" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="liczba_utworow_odtowrzonych_przez_uzytkownika">
-            <Parameter Name="imie" Mode="In" Type="String" />
+          <Parameter Name="imie" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="liczba_uzytkownikow_ktorzy_odtworzyli_utwor">
             <Parameter Name="nazwa" Mode="In" Type="String" />
@@ -777,26 +776,26 @@
           </FunctionImport>
           <FunctionImport Name="najpopularniejsze_w_kraju" ReturnType="Collection(SerwisMuzycznyModel.najpopularniejsze_w_kraju_Result)" />
           <FunctionImport Name="napopularniejsi_artysci" ReturnType="Collection(SerwisMuzycznyModel.napopularniejsi_artysci_Result)">
-            <Parameter Name="liczbaDni" Mode="In" Type="Int32" />
+          <Parameter Name="liczbaDni" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="planyIUzytkownik" ReturnType="Collection(SerwisMuzycznyModel.planyIUzytkownik_Result)">
-            <Parameter Name="idUzytkownika" Mode="In" Type="String" />
+          <Parameter Name="idUzytkownika" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="srednia_odtworzen" />
           <FunctionImport Name="usun_album">
-            <Parameter Name="nazwa" Mode="In" Type="Int32" />
+          <Parameter Name="nazwa" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usun_artyste">
-            <Parameter Name="nazwa" Mode="In" Type="Int32" />
+          <Parameter Name="nazwa" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usun_utwor">
-            <Parameter Name="nazwa" Mode="In" Type="Int32" />
+          <Parameter Name="nazwa" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usun_uzytkownika">
-            <Parameter Name="nazwa" Mode="In" Type="String" />
+          <Parameter Name="nazwa" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="utwory_z_albumu" ReturnType="Collection(SerwisMuzycznyModel.utwory_z_albumu_Result)">
-            <Parameter Name="idAlbumu" Mode="In" Type="Int32" />
+          <Parameter Name="idAlbumu" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="wiecej_niz_srednia" ReturnType="Collection(SerwisMuzycznyModel.wiecej_niz_srednia_Result)" />
         </EntityContainer>

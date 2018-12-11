@@ -30,7 +30,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.dataWydania, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.dataWydania, new { htmlAttributes = new { type = "date", max = @DateTime.Now.ToString("yyyy-MM-dd"), @class = "form-control", style = "padding-top:-10px;" } })
+                @Html.EditorFor(model => model.dataWydania, new { htmlAttributes = new { @type = "date", @Value = Model.dataWydania.ToString("yyyy-MM-dd"), @max = @DateTime.Now.ToString("yyyy-MM-dd"), @class = "form-control", @style = "padding:0px 10px;" } })
                 @Html.ValidationMessageFor(model => model.dataWydania, "", new { @class = "text-danger" })
             </div>
         </div>
