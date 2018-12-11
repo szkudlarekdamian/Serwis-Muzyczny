@@ -31,7 +31,7 @@ namespace Serwis_Muzyczny.Models
         public string rodzajMiejscowosci { get; set; }
         public string plec { get; set; }
         public int PozostalaIlosc { get; set; }
-        public byte[] row_version { get; set; }
+        public string row_version { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<odsluch> odsluch { get; set; }

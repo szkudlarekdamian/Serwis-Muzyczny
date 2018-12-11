@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -90,8 +91,8 @@ namespace Serwis_Muzyczny.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "uzytkownikId,imie,nazwisko,email,kraj,dataUrodzenia,miejscowosc,rodzajMiejscowosci,plec,PozostalaIlosc")] uzytkownik uzytkownik)
-        {
+        public ActionResult Edit([Bind(Include = "uzytkownikId,imie,nazwisko,email,kraj,dataUrodzenia,miejscowosc,rodzajMiejscowosci,plec,PozostalaIlosc,row_version")] uzytkownik uzytkownik)
+        { 
             if (ModelState.IsValid)
             {
                 ViewBag.Exception = null; 
@@ -99,7 +100,7 @@ namespace Serwis_Muzyczny.Controllers
                 {
                     db.edycja_uzytkownik(uzytkownik.uzytkownikId, uzytkownik.imie, uzytkownik.nazwisko, uzytkownik.email, uzytkownik.kraj,
                         uzytkownik.dataUrodzenia, uzytkownik.miejscowosc, uzytkownik.rodzajMiejscowosci, uzytkownik.plec,
-                        uzytkownik.PozostalaIlosc);
+                        uzytkownik.PozostalaIlosc, uzytkownik.row_version);
                     //db.Entry(uzytkownik).State = EntityState.Modified;
                     //db.SaveChanges();
                 }
