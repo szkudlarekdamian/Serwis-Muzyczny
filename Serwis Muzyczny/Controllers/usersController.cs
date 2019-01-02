@@ -25,6 +25,12 @@ namespace Serwis_Muzyczny.Controllers
             return View(db.planyIUzytkownik(id).ToList());
         }
 
+        public ActionResult Last30day(string id)
+        {
+            return View(db.planyIUzytkownik(id).ToList());
+        }
+
+
         // GET: users/Details/5
         public ActionResult Details(string id)
         {
