@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SerwisMuzycznyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SerwisMuzycznyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="album">
           <Key>
             <PropertyRef Name="albumId" />
@@ -96,6 +96,15 @@
           <Property Name="wykonanieId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="artystaId" Type="int" Nullable="false" />
           <Property Name="utworId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SerwisMuzyczny.dbo.najlepsi_klienci' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="najlepsi_klienci">
+          <Key>
+            <PropertyRef Name="Id uzytkownik" />
+          </Key>
+          <Property Name="Id uzytkownik" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Kupil" Type="int" />
         </EntityType>
         <Association Name="FK__album__artystaId__18EBB532">
           <End Role="artysta" Type="Self.artysta" Multiplicity="1" />
@@ -320,7 +329,15 @@
         <Function Name="planyIUzytkownik" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idUzytkownika" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pobierzObrotyZaOkres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="beginDate" Type="date" Mode="In" />
+          <Parameter Name="endDate" Type="date" Mode="In" />
+        </Function>
         <Function Name="srednia_odtworzen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="statystykaSprzedazy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="beginDate" Type="date" Mode="In" />
+          <Parameter Name="endDate" Type="date" Mode="In" />
+        </Function>
         <Function Name="usun_album" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nazwa" Type="int" Mode="In" />
         </Function>
@@ -354,6 +371,12 @@
           <EntitySet Name="utwor" EntityType="Self.utwor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="uzytkownik" EntityType="Self.uzytkownik" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="wykonanie" EntityType="Self.wykonanie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="najlepsi_klienci" EntityType="Self.najlepsi_klienci" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [najlepsi_klienci].[Id uzytkownik] AS [Id uzytkownik], 
+    [najlepsi_klienci].[Kupil] AS [Kupil]
+    FROM [dbo].[najlepsi_klienci] AS [najlepsi_klienci]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__album__artystaId__18EBB532" Association="Self.FK__album__artystaId__18EBB532">
             <End Role="artysta" EntitySet="artysta" />
             <End Role="album" EntitySet="album" />
@@ -395,8 +418,7 @@
             <End Role="planUzytkownik" EntitySet="planUzytkownik" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SerwisMuzycznyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -690,10 +712,10 @@
             <Parameter Name="pseudonim" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="dodaj_artyste">
-            <Parameter Name="pseudonim" Mode="In" Type="String" />
+          <Parameter Name="pseudonim" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="dodaj_gatunek">
-            <Parameter Name="nazwa" Mode="In" Type="String" />
+          <Parameter Name="nazwa" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="dodaj_odsluch">
             <Parameter Name="uztkownikId" Mode="In" Type="String" />
@@ -749,10 +771,10 @@
             <Parameter Name="dataEdycji" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="liczba_albumow_artysty">
-            <Parameter Name="pseudonim" Mode="In" Type="String" />
+          <Parameter Name="pseudonim" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="liczba_dni_odtwarzania_utworu">
-            <Parameter Name="utworId" Mode="In" Type="Int32" />
+          <Parameter Name="utworId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="liczba_odsluchan">
             <Parameter Name="id" Mode="In" Type="String" />
@@ -763,13 +785,13 @@
             <Parameter Name="pseudonim" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="liczba_utworow_artysty">
-            <Parameter Name="pseudonim" Mode="In" Type="String" />
+          <Parameter Name="pseudonim" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="liczba_utworow_danego_gatunku">
-            <Parameter Name="nazwa" Mode="In" Type="String" />
+          <Parameter Name="nazwa" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="liczba_utworow_odtowrzonych_przez_uzytkownika">
-            <Parameter Name="imie" Mode="In" Type="String" />
+          <Parameter Name="imie" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="liczba_uzytkownikow_ktorzy_odtworzyli_utwor">
             <Parameter Name="nazwa" Mode="In" Type="String" />
@@ -777,28 +799,37 @@
           </FunctionImport>
           <FunctionImport Name="najpopularniejsze_w_kraju" ReturnType="Collection(SerwisMuzycznyModel.najpopularniejsze_w_kraju_Result)" />
           <FunctionImport Name="napopularniejsi_artysci" ReturnType="Collection(SerwisMuzycznyModel.napopularniejsi_artysci_Result)">
-            <Parameter Name="liczbaDni" Mode="In" Type="Int32" />
+          <Parameter Name="liczbaDni" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="planyIUzytkownik" ReturnType="Collection(SerwisMuzycznyModel.planyIUzytkownik_Result)">
-            <Parameter Name="idUzytkownika" Mode="In" Type="String" />
+          <Parameter Name="idUzytkownika" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="srednia_odtworzen" />
           <FunctionImport Name="usun_album">
-            <Parameter Name="nazwa" Mode="In" Type="Int32" />
+          <Parameter Name="nazwa" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usun_artyste">
-            <Parameter Name="nazwa" Mode="In" Type="Int32" />
+          <Parameter Name="nazwa" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usun_utwor">
-            <Parameter Name="nazwa" Mode="In" Type="Int32" />
+          <Parameter Name="nazwa" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usun_uzytkownika">
-            <Parameter Name="nazwa" Mode="In" Type="String" />
+          <Parameter Name="nazwa" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="utwory_z_albumu" ReturnType="Collection(SerwisMuzycznyModel.utwory_z_albumu_Result)">
-            <Parameter Name="idAlbumu" Mode="In" Type="Int32" />
+          <Parameter Name="idAlbumu" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="wiecej_niz_srednia" ReturnType="Collection(SerwisMuzycznyModel.wiecej_niz_srednia_Result)" />
+          <FunctionImport Name="pobierzObrotyZaOkres" ReturnType="Collection(SerwisMuzycznyModel.pobierzObrotyZaOkres_Result)">
+            <Parameter Name="beginDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <EntitySet Name="najlepsi_klienci" EntityType="SerwisMuzycznyModel.najlepsi_klienci" />
+          <FunctionImport Name="statystykaSprzedazy" ReturnType="Collection(SerwisMuzycznyModel.statystykaSprzedazy_Result)">
+            <Parameter Name="beginDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="najpopularniejsze_w_kraju_Result">
           <Property Type="Int32" Name="WskaznikPopularnosci" Nullable="true" />
@@ -837,6 +868,27 @@
           <Property Type="Int32" Name="utworId" Nullable="false" />
           <Property Type="String" Name="nazwa" Nullable="false" MaxLength="60" />
           <Property Type="String" Name="dlugosc" Nullable="false" MaxLength="8" />
+        </ComplexType>
+        <ComplexType Name="pobierzObrotyZaOkres_Result">
+          <Property Type="Int32" Name="planId" Nullable="false" />
+          <Property Type="String" Name="nazwa" Nullable="false" MaxLength="30" />
+          <Property Type="Decimal" Name="Suma" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="Sprzedanych_sztuk" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="najlepsi_klienci">
+          <Key>
+            <PropertyRef Name="Id_uzytkownik" />
+          </Key>
+          <Property Name="Id_uzytkownik" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Kupil" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="statystykaSprzedazy_Result">
+          <Property Type="Decimal" Name="Wartosc_sprzedazy" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="Klientow" Nullable="true" />
+          <Property Type="Decimal" Name="Sredni_wydatek_klienta" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="Maksymalny_wydatek" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="Minimalny_wydatek" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="Wszystkie_sprzedaze" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1026,6 +1078,36 @@
                 <ScalarProperty Name="utworId" ColumnName="utworId" />
                 <ScalarProperty Name="nazwa" ColumnName="nazwa" />
                 <ScalarProperty Name="dlugosc" ColumnName="dlugosc" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pobierzObrotyZaOkres" FunctionName="SerwisMuzycznyModel.Store.pobierzObrotyZaOkres">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SerwisMuzycznyModel.pobierzObrotyZaOkres_Result">
+                <ScalarProperty Name="planId" ColumnName="planId" />
+                <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+                <ScalarProperty Name="Suma" ColumnName="Suma" />
+                <ScalarProperty Name="Sprzedanych_sztuk" ColumnName="Sprzedanych sztuk" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="najlepsi_klienci">
+            <EntityTypeMapping TypeName="SerwisMuzycznyModel.najlepsi_klienci">
+              <MappingFragment StoreEntitySet="najlepsi_klienci">
+                <ScalarProperty Name="Kupil" ColumnName="Kupil" />
+                <ScalarProperty Name="Id_uzytkownik" ColumnName="Id uzytkownik" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="statystykaSprzedazy" FunctionName="SerwisMuzycznyModel.Store.statystykaSprzedazy">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SerwisMuzycznyModel.statystykaSprzedazy_Result">
+                <ScalarProperty Name="Wartosc_sprzedazy" ColumnName="Wartosc sprzedazy" />
+                <ScalarProperty Name="Klientow" ColumnName="Klientow" />
+                <ScalarProperty Name="Sredni_wydatek_klienta" ColumnName="Sredni wydatek klienta" />
+                <ScalarProperty Name="Maksymalny_wydatek" ColumnName="Maksymalny wydatek" />
+                <ScalarProperty Name="Minimalny_wydatek" ColumnName="Minimalny wydatek" />
+                <ScalarProperty Name="Wszystkie_sprzedaze" ColumnName="Wszystkie sprzedaze" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

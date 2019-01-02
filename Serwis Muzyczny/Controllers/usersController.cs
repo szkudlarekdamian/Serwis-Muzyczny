@@ -19,7 +19,6 @@ namespace Serwis_Muzyczny.Controllers
             return View(db.uzytkownik.ToList());
         }
 
-
         public ActionResult PlansHistory(string id)
         {
             return View(db.planyIUzytkownik(id).ToList());

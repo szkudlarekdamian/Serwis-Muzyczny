@@ -1,0 +1,21 @@
+﻿@model Serwis_Muzyczny.Models.planUzytkownik
+
+@{
+    ViewBag.Title = "MostPopularPlans";
+}
+
+<h2>Najpopularniejsze plany</h2>
+
+
+@using (Html.BeginForm())
+{
+    <table class="table" style="background-image:linear-gradient(-90deg, violet, white);  border-color:darkslategray;">
+
+        @foreach (var item in Model)
+        {
+            <tr></tr>
+        }
+
+    </table>
+
+}

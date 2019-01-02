@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Serwis_Muzyczny.Models.pobierzObrotyZaOkres_Result>
+
+@{
+    ViewBag.Title = "Statystyki za wybrany okres.";
+}
+
+<h2>Statistic</h2>
+
+
+<table class="table">
+
+    <tr>
+        <td>
+            Id planu
+        </td>
+        <td>
+            Nazwa planu
+        </td>
+        <td>
+            Suma
+        </td>
+        <td>
+            Sztuk
+        </td>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="align-content:center">
+                @Html.DisplayFor(modelItem => item.planId)
+            </td>
+
+            <td style="align-content:center">
+                @Html.DisplayFor(modelItem => item.nazwa)
+            </td>
+
+            <td style="align-content:center">
+                @Html.DisplayFor(modelItem => item.Suma)
+            </td>
+
+            <td style="align-content:center">
+                @Html.DisplayFor(modelItem => item.Sprzedanych_sztuk)
+            </td>
+        </tr>
+
+    }
+
+
+</table>

@@ -25,6 +25,7 @@
         <AssociationConnector Association="SerwisMuzycznyModel.fk_plan_uzytkownik" ManuallyRouted="false" />
         <AssociationConnector Association="SerwisMuzycznyModel.FK__przynalez__utwor__1CBC4616" ManuallyRouted="false" />
         <AssociationConnector Association="SerwisMuzycznyModel.FK__wykonanie__utwor__151B244E" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SerwisMuzycznyModel.najlepsi_klienci" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

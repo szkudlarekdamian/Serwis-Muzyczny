@@ -43,6 +43,17 @@ namespace Serwis_Muzyczny.Controllers
             return View();
         }
 
+        public ActionResult Statistic()
+        {
+            DateTime start = DateTime.Now.AddDays(-100);
+            return View(db.pobierzObrotyZaOkres(start, DateTime.Now).ToList());
+        }
+
+        public ActionResult MostPopularPlans()
+        {
+            return View();
+        }
+
         // POST: plansAndUsers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.

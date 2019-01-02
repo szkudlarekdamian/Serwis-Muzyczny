@@ -179,6 +179,9 @@
     <Compile Include="Models\gatunek.cs">
       <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\najlepsi_klienci.cs">
+      <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\najpopularniejsze_w_kraju_Result.cs">
       <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
@@ -195,6 +198,9 @@
       <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\planyIUzytkownik_Result.cs">
+      <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\pobierzObrotyZaOkres_Result.cs">
       <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\przynaleznosc.cs">
@@ -214,6 +220,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SerwisMuzycznyEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\statystykaSprzedazy_Result.cs">
+      <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\utwor.cs">
       <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
@@ -344,6 +353,8 @@
     <Content Include="Views\albums\CreateByProcedure.cshtml" />
     <Content Include="Views\users\PlansHistory.cshtml" />
     <Content Include="Views\users\Last30day.cshtml" />
+    <Content Include="Views\plansAndUsers\Statistic.cshtml" />
+    <Content Include="Views\plansAndUsers\MostPopularPlans.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -37,6 +37,7 @@ namespace Serwis_Muzyczny.Models
         public virtual DbSet<utwor> utwor { get; set; }
         public virtual DbSet<uzytkownik> uzytkownik { get; set; }
         public virtual DbSet<wykonanie> wykonanie { get; set; }
+        public virtual DbSet<najlepsi_klienci> najlepsi_klienci { get; set; }
     
         public virtual int dodaj_album(string nazwa, Nullable<System.DateTime> data, string nazwa_gatunku, string pseudonim)
         {
@@ -422,6 +423,32 @@ namespace Serwis_Muzyczny.Models
         public virtual ObjectResult<wiecej_niz_srednia_Result> wiecej_niz_srednia()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<wiecej_niz_srednia_Result>("wiecej_niz_srednia");
+        }
+    
+        public virtual ObjectResult<pobierzObrotyZaOkres_Result> pobierzObrotyZaOkres(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate)
+        {
+            var beginDateParameter = beginDate.HasValue ?
+                new ObjectParameter("beginDate", beginDate) :
+                new ObjectParameter("beginDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pobierzObrotyZaOkres_Result>("pobierzObrotyZaOkres", beginDateParameter, endDateParameter);
+        }
+    
+        public virtual ObjectResult<statystykaSprzedazy_Result> statystykaSprzedazy(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate)
+        {
+            var beginDateParameter = beginDate.HasValue ?
+                new ObjectParameter("beginDate", beginDate) :
+                new ObjectParameter("beginDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<statystykaSprzedazy_Result>("statystykaSprzedazy", beginDateParameter, endDateParameter);
         }
     }
 }
