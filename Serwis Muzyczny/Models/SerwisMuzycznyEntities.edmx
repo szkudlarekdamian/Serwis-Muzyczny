@@ -321,6 +321,7 @@ warning 6002: The table/view 'SerwisMuzyczny.dbo.najlepsi_klienci' does not have
         <Function Name="najczesciej_odtwarzany_utwor_danego_gatunku" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
           <Parameter Name="gatunekId" Type="int" Mode="In" />
         </Function>
+        <Function Name="najlepszePlany" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="najpopularniejsze_w_kraju" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="napopularniejsi_artysci" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="liczbaDni" Type="int" Mode="In" />
@@ -534,6 +535,13 @@ warning 6002: The table/view 'SerwisMuzyczny.dbo.najlepsi_klienci' does not have
           <NavigationProperty Name="artysta" Relationship="Self.FK__wykonanie__artys__14270015" FromRole="wykonanie" ToRole="artysta" />
           <NavigationProperty Name="utwor" Relationship="Self.FK__wykonanie__utwor__151B244E" FromRole="wykonanie" ToRole="utwor" />
         </EntityType>
+        <EntityType Name="najlepsi_klienci">
+          <Key>
+            <PropertyRef Name="Id_uzytkownik" />
+          </Key>
+          <Property Name="Id_uzytkownik" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Kupil" Type="Int32" />
+        </EntityType>
         <Association Name="FK__album__artystaId__18EBB532">
           <End Role="artysta" Type="Self.artysta" Multiplicity="1" />
           <End Role="album" Type="Self.album" Multiplicity="*" />
@@ -665,6 +673,7 @@ warning 6002: The table/view 'SerwisMuzyczny.dbo.najlepsi_klienci' does not have
           <EntitySet Name="utwor" EntityType="Self.utwor" />
           <EntitySet Name="uzytkownik" EntityType="Self.uzytkownik" />
           <EntitySet Name="wykonanie" EntityType="Self.wykonanie" />
+          <EntitySet Name="najlepsi_klienci" EntityType="Self.najlepsi_klienci" />
           <AssociationSet Name="FK__album__artystaId__18EBB532" Association="Self.FK__album__artystaId__18EBB532">
             <End Role="artysta" EntitySet="artysta" />
             <End Role="album" EntitySet="album" />
@@ -804,7 +813,15 @@ warning 6002: The table/view 'SerwisMuzyczny.dbo.najlepsi_klienci' does not have
           <FunctionImport Name="planyIUzytkownik" ReturnType="Collection(SerwisMuzycznyModel.planyIUzytkownik_Result)">
           <Parameter Name="idUzytkownika" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="pobierzObrotyZaOkres" ReturnType="Collection(SerwisMuzycznyModel.pobierzObrotyZaOkres_Result)">
+            <Parameter Name="beginDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
           <FunctionImport Name="srednia_odtworzen" />
+          <FunctionImport Name="statystykaSprzedazy" ReturnType="Collection(SerwisMuzycznyModel.statystykaSprzedazy_Result)">
+            <Parameter Name="beginDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
           <FunctionImport Name="usun_album">
           <Parameter Name="nazwa" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -821,15 +838,7 @@ warning 6002: The table/view 'SerwisMuzyczny.dbo.najlepsi_klienci' does not have
           <Parameter Name="idAlbumu" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="wiecej_niz_srednia" ReturnType="Collection(SerwisMuzycznyModel.wiecej_niz_srednia_Result)" />
-          <FunctionImport Name="pobierzObrotyZaOkres" ReturnType="Collection(SerwisMuzycznyModel.pobierzObrotyZaOkres_Result)">
-            <Parameter Name="beginDate" Mode="In" Type="DateTime" />
-            <Parameter Name="endDate" Mode="In" Type="DateTime" />
-          </FunctionImport>
-          <EntitySet Name="najlepsi_klienci" EntityType="SerwisMuzycznyModel.najlepsi_klienci" />
-          <FunctionImport Name="statystykaSprzedazy" ReturnType="Collection(SerwisMuzycznyModel.statystykaSprzedazy_Result)">
-            <Parameter Name="beginDate" Mode="In" Type="DateTime" />
-            <Parameter Name="endDate" Mode="In" Type="DateTime" />
-          </FunctionImport>
+          <FunctionImport Name="najlepszePlany" ReturnType="Collection(SerwisMuzycznyModel.najlepszePlany_Result)" />
         </EntityContainer>
         <ComplexType Name="najpopularniejsze_w_kraju_Result">
           <Property Type="Int32" Name="WskaznikPopularnosci" Nullable="true" />
@@ -860,6 +869,20 @@ warning 6002: The table/view 'SerwisMuzyczny.dbo.najlepsi_klienci' does not have
           <Property Type="Double" Name="Wartosc" Nullable="true" />
           <Property Type="Double" Name="WartoscRabatu" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pobierzObrotyZaOkres_Result">
+          <Property Type="Int32" Name="planId" Nullable="false" />
+          <Property Type="String" Name="nazwa" Nullable="false" MaxLength="30" />
+          <Property Type="Decimal" Name="Suma" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="Sprzedanych_sztuk" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="statystykaSprzedazy_Result">
+          <Property Type="Decimal" Name="Wartosc_sprzedazy" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="Klientow" Nullable="true" />
+          <Property Type="Decimal" Name="Sredni_wydatek_klienta" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="Maksymalny_wydatek" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="Minimalny_wydatek" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="Wszystkie_sprzedaze" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="utwory_z_albumu_Result">
           <Property Type="String" Name="Nazwa" Nullable="false" MaxLength="60" />
           <Property Type="String" Name="Długość" Nullable="false" MaxLength="8" />
@@ -869,26 +892,16 @@ warning 6002: The table/view 'SerwisMuzyczny.dbo.najlepsi_klienci' does not have
           <Property Type="String" Name="nazwa" Nullable="false" MaxLength="60" />
           <Property Type="String" Name="dlugosc" Nullable="false" MaxLength="8" />
         </ComplexType>
-        <ComplexType Name="pobierzObrotyZaOkres_Result">
+        <ComplexType Name="najlepszePlany_Result">
+          <Property Type="Int32" Name="planUzytkownikid" Nullable="false" />
+          <Property Type="String" Name="uzytkownikId" Nullable="false" MaxLength="30" />
           <Property Type="Int32" Name="planId" Nullable="false" />
+          <Property Type="DateTime" Name="dataKupnaPakietu" Nullable="false" />
+          <Property Type="Byte" Name="rabat" Nullable="true" />
+          <Property Type="Int32" Name="planId1" Nullable="false" />
+          <Property Type="Int32" Name="iloscPiosenek" Nullable="false" />
+          <Property Type="Decimal" Name="cena" Nullable="false" Precision="19" />
           <Property Type="String" Name="nazwa" Nullable="false" MaxLength="30" />
-          <Property Type="Decimal" Name="Suma" Nullable="true" Precision="19" />
-          <Property Type="Int32" Name="Sprzedanych_sztuk" Nullable="true" />
-        </ComplexType>
-        <EntityType Name="najlepsi_klienci">
-          <Key>
-            <PropertyRef Name="Id_uzytkownik" />
-          </Key>
-          <Property Name="Id_uzytkownik" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Kupil" Type="Int32" />
-        </EntityType>
-        <ComplexType Name="statystykaSprzedazy_Result">
-          <Property Type="Decimal" Name="Wartosc_sprzedazy" Nullable="true" Precision="19" />
-          <Property Type="Int32" Name="Klientow" Nullable="true" />
-          <Property Type="Decimal" Name="Sredni_wydatek_klienta" Nullable="true" Precision="19" />
-          <Property Type="Decimal" Name="Maksymalny_wydatek" Nullable="true" Precision="19" />
-          <Property Type="Decimal" Name="Minimalny_wydatek" Nullable="true" Precision="19" />
-          <Property Type="Int32" Name="Wszystkie_sprzedaze" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -998,6 +1011,14 @@ warning 6002: The table/view 'SerwisMuzyczny.dbo.najlepsi_klienci' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="najlepsi_klienci">
+            <EntityTypeMapping TypeName="SerwisMuzycznyModel.najlepsi_klienci">
+              <MappingFragment StoreEntitySet="najlepsi_klienci">
+                <ScalarProperty Name="Id_uzytkownik" ColumnName="Id uzytkownik" />
+                <ScalarProperty Name="Kupil" ColumnName="Kupil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="dodaj_album" FunctionName="SerwisMuzycznyModel.Store.dodaj_album" />
           <FunctionImportMapping FunctionImportName="dodaj_artyste" FunctionName="SerwisMuzycznyModel.Store.dodaj_artyste" />
           <FunctionImportMapping FunctionImportName="dodaj_gatunek" FunctionName="SerwisMuzycznyModel.Store.dodaj_gatunek" />
@@ -1059,7 +1080,29 @@ warning 6002: The table/view 'SerwisMuzyczny.dbo.najlepsi_klienci' does not have
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pobierzObrotyZaOkres" FunctionName="SerwisMuzycznyModel.Store.pobierzObrotyZaOkres">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SerwisMuzycznyModel.pobierzObrotyZaOkres_Result">
+                <ScalarProperty Name="planId" ColumnName="planId" />
+                <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+                <ScalarProperty Name="Suma" ColumnName="Suma" />
+                <ScalarProperty Name="Sprzedanych_sztuk" ColumnName="Sprzedanych sztuk" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="srednia_odtworzen" FunctionName="SerwisMuzycznyModel.Store.srednia_odtworzen" />
+          <FunctionImportMapping FunctionImportName="statystykaSprzedazy" FunctionName="SerwisMuzycznyModel.Store.statystykaSprzedazy">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SerwisMuzycznyModel.statystykaSprzedazy_Result">
+                <ScalarProperty Name="Wartosc_sprzedazy" ColumnName="Wartosc sprzedazy" />
+                <ScalarProperty Name="Klientow" ColumnName="Klientow" />
+                <ScalarProperty Name="Sredni_wydatek_klienta" ColumnName="Sredni wydatek klienta" />
+                <ScalarProperty Name="Maksymalny_wydatek" ColumnName="Maksymalny wydatek" />
+                <ScalarProperty Name="Minimalny_wydatek" ColumnName="Minimalny wydatek" />
+                <ScalarProperty Name="Wszystkie_sprzedaze" ColumnName="Wszystkie sprzedaze" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usun_album" FunctionName="SerwisMuzycznyModel.Store.usun_album" />
           <FunctionImportMapping FunctionImportName="usun_artyste" FunctionName="SerwisMuzycznyModel.Store.usun_artyste" />
           <FunctionImportMapping FunctionImportName="usun_utwor" FunctionName="SerwisMuzycznyModel.Store.usun_utwor" />
@@ -1081,33 +1124,18 @@ warning 6002: The table/view 'SerwisMuzyczny.dbo.najlepsi_klienci' does not have
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pobierzObrotyZaOkres" FunctionName="SerwisMuzycznyModel.Store.pobierzObrotyZaOkres">
+          <FunctionImportMapping FunctionImportName="najlepszePlany" FunctionName="SerwisMuzycznyModel.Store.najlepszePlany">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SerwisMuzycznyModel.pobierzObrotyZaOkres_Result">
+              <ComplexTypeMapping TypeName="SerwisMuzycznyModel.najlepszePlany_Result">
+                <ScalarProperty Name="planUzytkownikid" ColumnName="planUzytkownikid" />
+                <ScalarProperty Name="uzytkownikId" ColumnName="uzytkownikId" />
                 <ScalarProperty Name="planId" ColumnName="planId" />
+                <ScalarProperty Name="dataKupnaPakietu" ColumnName="dataKupnaPakietu" />
+                <ScalarProperty Name="rabat" ColumnName="rabat" />
+                <ScalarProperty Name="planId1" ColumnName="planId1" />
+                <ScalarProperty Name="iloscPiosenek" ColumnName="iloscPiosenek" />
+                <ScalarProperty Name="cena" ColumnName="cena" />
                 <ScalarProperty Name="nazwa" ColumnName="nazwa" />
-                <ScalarProperty Name="Suma" ColumnName="Suma" />
-                <ScalarProperty Name="Sprzedanych_sztuk" ColumnName="Sprzedanych sztuk" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <EntitySetMapping Name="najlepsi_klienci">
-            <EntityTypeMapping TypeName="SerwisMuzycznyModel.najlepsi_klienci">
-              <MappingFragment StoreEntitySet="najlepsi_klienci">
-                <ScalarProperty Name="Kupil" ColumnName="Kupil" />
-                <ScalarProperty Name="Id_uzytkownik" ColumnName="Id uzytkownik" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="statystykaSprzedazy" FunctionName="SerwisMuzycznyModel.Store.statystykaSprzedazy">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SerwisMuzycznyModel.statystykaSprzedazy_Result">
-                <ScalarProperty Name="Wartosc_sprzedazy" ColumnName="Wartosc sprzedazy" />
-                <ScalarProperty Name="Klientow" ColumnName="Klientow" />
-                <ScalarProperty Name="Sredni_wydatek_klienta" ColumnName="Sredni wydatek klienta" />
-                <ScalarProperty Name="Maksymalny_wydatek" ColumnName="Maksymalny wydatek" />
-                <ScalarProperty Name="Minimalny_wydatek" ColumnName="Minimalny wydatek" />
-                <ScalarProperty Name="Wszystkie_sprzedaze" ColumnName="Wszystkie sprzedaze" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

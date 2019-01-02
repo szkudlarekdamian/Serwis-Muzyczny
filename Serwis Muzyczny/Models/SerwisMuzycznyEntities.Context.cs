@@ -370,9 +370,35 @@ namespace Serwis_Muzyczny.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<planyIUzytkownik_Result>("planyIUzytkownik", idUzytkownikaParameter);
         }
     
+        public virtual ObjectResult<pobierzObrotyZaOkres_Result> pobierzObrotyZaOkres(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate)
+        {
+            var beginDateParameter = beginDate.HasValue ?
+                new ObjectParameter("beginDate", beginDate) :
+                new ObjectParameter("beginDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pobierzObrotyZaOkres_Result>("pobierzObrotyZaOkres", beginDateParameter, endDateParameter);
+        }
+    
         public virtual int srednia_odtworzen()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("srednia_odtworzen");
+        }
+    
+        public virtual ObjectResult<statystykaSprzedazy_Result> statystykaSprzedazy(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate)
+        {
+            var beginDateParameter = beginDate.HasValue ?
+                new ObjectParameter("beginDate", beginDate) :
+                new ObjectParameter("beginDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<statystykaSprzedazy_Result>("statystykaSprzedazy", beginDateParameter, endDateParameter);
         }
     
         public virtual int usun_album(Nullable<int> nazwa)
@@ -425,30 +451,9 @@ namespace Serwis_Muzyczny.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<wiecej_niz_srednia_Result>("wiecej_niz_srednia");
         }
     
-        public virtual ObjectResult<pobierzObrotyZaOkres_Result> pobierzObrotyZaOkres(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate)
+        public virtual ObjectResult<najlepszePlany_Result> najlepszePlany()
         {
-            var beginDateParameter = beginDate.HasValue ?
-                new ObjectParameter("beginDate", beginDate) :
-                new ObjectParameter("beginDate", typeof(System.DateTime));
-    
-            var endDateParameter = endDate.HasValue ?
-                new ObjectParameter("endDate", endDate) :
-                new ObjectParameter("endDate", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pobierzObrotyZaOkres_Result>("pobierzObrotyZaOkres", beginDateParameter, endDateParameter);
-        }
-    
-        public virtual ObjectResult<statystykaSprzedazy_Result> statystykaSprzedazy(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate)
-        {
-            var beginDateParameter = beginDate.HasValue ?
-                new ObjectParameter("beginDate", beginDate) :
-                new ObjectParameter("beginDate", typeof(System.DateTime));
-    
-            var endDateParameter = endDate.HasValue ?
-                new ObjectParameter("endDate", endDate) :
-                new ObjectParameter("endDate", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<statystykaSprzedazy_Result>("statystykaSprzedazy", beginDateParameter, endDateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<najlepszePlany_Result>("najlepszePlany");
         }
     }
 }

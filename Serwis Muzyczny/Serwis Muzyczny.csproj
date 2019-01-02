@@ -182,6 +182,9 @@
     <Compile Include="Models\najlepsi_klienci.cs">
       <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\najlepszePlany_Result.cs">
+      <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\najpopularniejsze_w_kraju_Result.cs">
       <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
@@ -355,6 +358,8 @@
     <Content Include="Views\users\Last30day.cshtml" />
     <Content Include="Views\plansAndUsers\Statistic.cshtml" />
     <Content Include="Views\plansAndUsers\MostPopularPlans.cshtml" />
+    <Content Include="Views\plansAndUsers\BestCustomers.cshtml" />
+    <Content Include="Views\plansAndUsers\bestPlans.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -11,13 +11,16 @@ namespace Serwis_Muzyczny.Models
 {
     using System;
     
-    public partial class statystykaSprzedazy_Result
+    public partial class najlepszePlany_Result
     {
-        public Nullable<decimal> Wartosc_sprzedazy { get; set; }
-        public Nullable<int> Klientow { get; set; }
-        public Nullable<decimal> Sredni_wydatek_klienta { get; set; }
-        public Nullable<decimal> Maksymalny_wydatek { get; set; }
-        public Nullable<decimal> Minimalny_wydatek { get; set; }
-        public Nullable<int> Wszystkie_sprzedaze { get; set; }
+        public int planUzytkownikid { get; set; }
+        public string uzytkownikId { get; set; }
+        public int planId { get; set; }
+        public System.DateTime dataKupnaPakietu { get; set; }
+        public Nullable<byte> rabat { get; set; }
+        public int planId1 { get; set; }
+        public int iloscPiosenek { get; set; }
+        public decimal cena { get; set; }
+        public string nazwa { get; set; }
     }
 }

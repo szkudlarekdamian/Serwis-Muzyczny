@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Serwis_Muzyczny.Models.najlepszePlany_Result>
+
+@{
+    ViewBag.Title = "bestPlans";
+}
+
+<h2>Najlepiej sprzedające się plany</h2>
+
+<table class="table">
+
+    <tr>
+        <td>
+            Id planu
+        </td>
+    </tr>
+
+    @foreach (var item in Model.GroupBy(p => p.planId ).Select(group => new { planId = group.Key, count = group.Count()}).OrderBy(x=>x.count).Take(2))
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.planId)
+            </td>
+        </tr>
+    }
+
+
+</table>
+

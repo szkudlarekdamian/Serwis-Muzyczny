@@ -1,21 +1,65 @@
-﻿@model Serwis_Muzyczny.Models.planUzytkownik
+﻿@model IEnumerable<Serwis_Muzyczny.Models.statystykaSprzedazy_Result>
 
 @{
     ViewBag.Title = "MostPopularPlans";
 }
 
-<h2>Najpopularniejsze plany</h2>
+<h2>Statystyka sprzedaży</h2>
 
 
 @using (Html.BeginForm())
 {
-    <table class="table" style="background-image:linear-gradient(-90deg, violet, white);  border-color:darkslategray;">
 
-        @foreach (var item in Model)
+    <table class="table" style="background-image:linear-gradient(-90deg, violet, white);  border-color:darkslategray;">
+        <tr>
+            <td>
+                Wartość sprzedaży
+            </td>
+            <td>
+                Obsłużonych klientów
+            </td>
+            <td>
+                Średni wydatek klienta
+            </td>
+            <td>
+                Maksymalny wydatek klienta
+            </td>
+            <td>
+                Minimalny wydatek klienta
+            </td>
+            <td>
+                Wszystkie sprzeże
+            </td>
+        </tr>
+
+        @foreach(var item in Model)
         {
-            <tr></tr>
+            <tr>
+                <td style="align-content:center">
+                    @Html.DisplayFor(modelItem => item.Wartosc_sprzedazy)
+                </td>
+
+                <td style="align-content:center">
+                    @Html.DisplayFor(modelItem => item.Klientow)
+                </td>
+
+                <td style="align-content:center">
+                    @Html.DisplayFor(modelItem => item.Sredni_wydatek_klienta)
+                </td>
+
+                <td style="align-content:center">
+                    @Html.DisplayFor(modelItem => item.Maksymalny_wydatek)
+                </td>
+
+                <td style="align-content:center">
+                    @Html.DisplayFor(modelItem => item.Minimalny_wydatek)
+                </td>
+
+                <td style="align-content:center">
+                    @Html.DisplayFor(modelItem => item.Wszystkie_sprzedaze)
+                </td>
+            </tr>
         }
 
     </table>
-
 }

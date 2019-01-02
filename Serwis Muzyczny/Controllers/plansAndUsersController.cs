@@ -49,9 +49,23 @@ namespace Serwis_Muzyczny.Controllers
             return View(db.pobierzObrotyZaOkres(start, DateTime.Now).ToList());
         }
 
+        public ActionResult bestPlans()
+        {
+            var tmp = db.najlepszePlany();
+            return View(tmp);
+        }
+
         public ActionResult MostPopularPlans()
         {
-            return View();
+            DateTime start = DateTime.Now.AddDays(-100);
+            return View(db.statystykaSprzedazy(start, DateTime.Now).ToList());
+        }
+
+        //BestClients
+        public ActionResult BestCustomers()
+        {
+            var tmp = db.najlepsi_klienci.ToList();
+            return View(tmp);
         }
 
         // POST: plansAndUsers/Create

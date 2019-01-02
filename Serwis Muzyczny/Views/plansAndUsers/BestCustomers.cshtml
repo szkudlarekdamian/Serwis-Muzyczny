@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Serwis_Muzyczny.Models.najlepsi_klienci>
+
+@{
+    ViewBag.Title = "BestCustomers";
+}
+
+<h2>Najlepsi klienci</h2>
+
+<table class="table">
+
+    <tr>
+        <td>
+            Id uzytkownika
+        </td>
+        <td>
+            Liczba zakupionych planów
+        </td>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(model => item.Id_uzytkownik)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.Kupil)
+        </td>
+    </tr>
+    }
+
+
+</table>
