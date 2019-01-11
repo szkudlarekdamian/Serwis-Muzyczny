@@ -176,6 +176,7 @@
     <Compile Include="Models\artysta.cs">
       <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\czas.cs" />
     <Compile Include="Models\gatunek.cs">
       <DependentUpon>SerwisMuzycznyEntities.tt</DependentUpon>
     </Compile>

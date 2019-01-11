@@ -45,20 +45,32 @@ namespace Serwis_Muzyczny.Controllers
 
         public ActionResult Statistic()
         {
-            DateTime start = DateTime.Now.AddDays(-100);
+            DateTime start = DateTime.Now.AddDays(-30);
             return View(db.pobierzObrotyZaOkres(start, DateTime.Now).ToList());
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Statistic([Bind(Include = "from,to")] czas czas)
+        {
+            return View(db.pobierzObrotyZaOkres(czas.from, czas.to).ToList());
         }
 
         public ActionResult bestPlans()
         {
-            var tmp = db.najlepszePlany();
-            return View(tmp);
+            return View(db.najlepszePlany());
         }
 
         public ActionResult MostPopularPlans()
         {
-            DateTime start = DateTime.Now.AddDays(-100);
+            DateTime start = DateTime.Now.AddDays(-30);
             return View(db.statystykaSprzedazy(start, DateTime.Now).ToList());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MostPopularPlans([Bind(Include = "from,to")] czas czas)
+        {
+            return View(db.statystykaSprzedazy(czas.from, czas.to).ToList());
         }
 
         //BestClients

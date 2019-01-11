@@ -14,7 +14,7 @@
         </td>
     </tr>
 
-    @foreach (var item in Model.GroupBy(p => p.planId ).Select(group => new { planId = group.Key, count = group.Count()}).OrderBy(x=>x.count).Take(2))
+    @foreach (var item in Model.GroupBy(p => p.planId).Select(group => new { planId = group.Key, count = group.Count() }).OrderBy(x => x.count).Take(2))
     {
         <tr>
             <td>

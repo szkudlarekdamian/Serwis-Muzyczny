@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "MostPopularPlans";
+    Serwis_Muzyczny.Models.czas czas = new Serwis_Muzyczny.Models.czas();
 }
 
 <h2>Statystyka sprzedaży</h2>
@@ -9,57 +10,87 @@
 
 @using (Html.BeginForm())
 {
+    @Html.AntiForgeryToken()
 
-    <table class="table" style="background-image:linear-gradient(-90deg, violet, white);  border-color:darkslategray;">
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Od</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => czas.from, new { htmlAttributes = new { @type = "date", @Value = @DateTime.Now.AddDays(-30).ToString("yyyy-MM-dd"), @class = "form-control", @style = "padding:0px 10px;" } })
+                @Html.ValidationMessageFor(model => czas.from, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Do</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => czas.to, new { htmlAttributes = new { @type = "date", @Value = @DateTime.Now.ToString("yyyy-MM-dd"), @class = "form-control", @style = "padding:0px 10px;" } })
+                @Html.ValidationMessageFor(model => czas.to, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Pokaż" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<table class="table" style="background-image:linear-gradient(-90deg, violet, white);  border-color:darkslategray;">
+    <tr>
+        <td>
+            Wartość sprzedaży
+        </td>
+        <td>
+            Obsłużonych klientów
+        </td>
+        <td>
+            Średni wydatek klienta
+        </td>
+        <td>
+            Maksymalny wydatek klienta
+        </td>
+        <td>
+            Minimalny wydatek klienta
+        </td>
+        <td>
+            Wszystkie sprzeże
+        </td>
+    </tr>
+
+    @foreach (var item in Model)
+    {
         <tr>
-            <td>
-                Wartość sprzedaży
+            <td style="align-content:center">
+                @Html.DisplayFor(modelItem => item.Wartosc_sprzedazy)
             </td>
-            <td>
-                Obsłużonych klientów
+
+            <td style="align-content:center">
+                @Html.DisplayFor(modelItem => item.Klientow)
             </td>
-            <td>
-                Średni wydatek klienta
+
+            <td style="align-content:center">
+                @Html.DisplayFor(modelItem => item.Sredni_wydatek_klienta)
             </td>
-            <td>
-                Maksymalny wydatek klienta
+
+            <td style="align-content:center">
+                @Html.DisplayFor(modelItem => item.Maksymalny_wydatek)
             </td>
-            <td>
-                Minimalny wydatek klienta
+
+            <td style="align-content:center">
+                @Html.DisplayFor(modelItem => item.Minimalny_wydatek)
             </td>
-            <td>
-                Wszystkie sprzeże
+
+            <td style="align-content:center">
+                @Html.DisplayFor(modelItem => item.Wszystkie_sprzedaze)
             </td>
         </tr>
+    }
 
-        @foreach(var item in Model)
-        {
-            <tr>
-                <td style="align-content:center">
-                    @Html.DisplayFor(modelItem => item.Wartosc_sprzedazy)
-                </td>
-
-                <td style="align-content:center">
-                    @Html.DisplayFor(modelItem => item.Klientow)
-                </td>
-
-                <td style="align-content:center">
-                    @Html.DisplayFor(modelItem => item.Sredni_wydatek_klienta)
-                </td>
-
-                <td style="align-content:center">
-                    @Html.DisplayFor(modelItem => item.Maksymalny_wydatek)
-                </td>
-
-                <td style="align-content:center">
-                    @Html.DisplayFor(modelItem => item.Minimalny_wydatek)
-                </td>
-
-                <td style="align-content:center">
-                    @Html.DisplayFor(modelItem => item.Wszystkie_sprzedaze)
-                </td>
-            </tr>
-        }
-
-    </table>
-}
+</table>
